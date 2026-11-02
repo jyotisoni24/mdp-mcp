@@ -1,0 +1,889 @@
+{
+  "metadata": {
+    "evaluation_title": "Research-Grade Evaluation of MCP Security Gateway",
+    "timestamp": "2026-11-01T19:55:13.408495+00:00",
+    "model_evaluated": "expanded_baseline_detector",
+    "dataset_evaluated": "expanded_experimental_dataset.csv",
+    "ood_dataset_evaluated": "expanded_ood_dataset.json",
+    "test_suite_status": "86 passed out of 86 automated tests",
+    "production_readiness": false,
+    "production_readiness_statement": "Experimental academic prototype. Designed for reproducible research evaluation, not commercial production deployment."
+  },
+  "module_1_reproducibility_audit": {
+    "dataset_path": "C:\\Users\\hp\\OneDrive\\Desktop\\mdp-mcp\\mcp-security\\data\\expanded_experimental_dataset.csv",
+    "total_records": 538,
+    "malicious_records": 485,
+    "benign_records": 53,
+    "class_imbalance_ratio": "9.15:1",
+    "missing_descriptions": 0,
+    "empty_descriptions": 0,
+    "unique_descriptions": 538,
+    "duplicate_descriptions": 0,
+    "unique_record_ids": 538,
+    "canonical_groups_count": 50,
+    "nan_tool_name_count": 1,
+    "nan_tool_name_record_ids": [
+      "Puppeteer_12"
+    ],
+    "ood_records_count": 4,
+    "ood_in_training_overlap": 0,
+    "cv_group_leakage_detected": false,
+    "cv_fold_overlaps": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "independent_test_total": 133,
+    "independent_test_benign": 27,
+    "independent_test_malicious": 106,
+    "independent_test_group_overlap": 0,
+    "same_label_near_duplicates_ge_80": 35,
+    "cross_label_near_duplicates_ge_80": 0,
+    "model_artifact_loaded": true,
+    "model_type": "LogisticRegression",
+    "feature_count": 3000,
+    "intercept": -0.8473,
+    "c_parameter": 1.0,
+    "class_weight": "balanced"
+  },
+  "module_2_machine_learning_evaluation": {
+    "cross_validation": {
+      "aggregate": {
+        "tau_0_50": {
+          "threshold": 0.5,
+          "accuracy": 0.983271375464684,
+          "precision": 0.9857142857142858,
+          "recall": 0.9958762886597938,
+          "f1": 0.9907692307692307,
+          "fpr": 0.1320754716981132,
+          "fpr_fraction": "7/53",
+          "fnr": 0.004123711340206186,
+          "fnr_fraction": "2/485",
+          "roc_auc": 0.9981326590157557,
+          "pr_auc": 0.9998047713981013,
+          "confusion_matrix": {
+            "tn": 46,
+            "fp": 7,
+            "fn": 2,
+            "tp": 483
+          },
+          "bootstrap_95ci": {
+            "accuracy": {
+              "mean": 0.9833587360594795,
+              "std": 0.00551540298855604,
+              "ci_lower": 0.9721189591078067,
+              "ci_upper": 0.9925650557620818
+            },
+            "precision": {
+              "mean": 0.9858567974266654,
+              "std": 0.005323086649658715,
+              "ci_lower": 0.9737889988595634,
+              "ci_upper": 0.995807783018868
+            },
+            "recall": {
+              "mean": 0.995824794566752,
+              "std": 0.0029346573672339262,
+              "ci_lower": 0.9895827896659708,
+              "ci_upper": 1.0
+            },
+            "f1": {
+              "mean": 0.9908064113033549,
+              "std": 0.003069942924720016,
+              "ci_lower": 0.9843235465719965,
+              "ci_upper": 0.9959514170040485
+            },
+            "fpr": {
+              "mean": 0.13070563900375326,
+              "std": 0.04705762239439599,
+              "ci_lower": 0.05082627118644068,
+              "ci_upper": 0.23637559808612438
+            },
+            "fnr": {
+              "mean": 0.004175205433247988,
+              "std": 0.002934657367233927,
+              "ci_lower": 0.0,
+              "ci_upper": 0.010417210334029226
+            },
+            "roc_auc": {
+              "mean": 0.9981268805171437,
+              "std": 0.001326982891267999,
+              "ci_lower": 0.9950443101579904,
+              "ci_upper": 1.0
+            },
+            "pr_auc": {
+              "mean": 0.9998040397938248,
+              "std": 0.0001428396955960077,
+              "ci_lower": 0.9994605910918128,
+              "ci_upper": 1.0
+            }
+          }
+        },
+        "tau_0_70_provisional": {
+          "threshold": 0.7,
+          "accuracy": 0.9739776951672863,
+          "precision": 1.0,
+          "recall": 0.9711340206185567,
+          "f1": 0.9853556485355649,
+          "fpr": 0.0,
+          "fpr_fraction": "0/53",
+          "fnr": 0.0288659793814433,
+          "fnr_fraction": "14/485",
+          "roc_auc": 0.9981326590157557,
+          "pr_auc": 0.9998047713981013,
+          "confusion_matrix": {
+            "tn": 53,
+            "fp": 0,
+            "fn": 14,
+            "tp": 471
+          },
+          "bootstrap_95ci": {
+            "accuracy": {
+              "mean": 0.9737453531598514,
+              "std": 0.006840394926471732,
+              "ci_lower": 0.9609665427509294,
+              "ci_upper": 0.9869888475836431
+            },
+            "precision": {
+              "mean": 1.0,
+              "std": 0.0,
+              "ci_lower": 1.0,
+              "ci_upper": 1.0
+            },
+            "recall": {
+              "mean": 0.9708757549564427,
+              "std": 0.007566548184999538,
+              "ci_lower": 0.9564292707964908,
+              "ci_upper": 0.9854469854469855
+            },
+            "f1": {
+              "mean": 0.9852077241370012,
+              "std": 0.003897846080173936,
+              "ci_lower": 0.9777294635904359,
+              "ci_upper": 0.9926701570680628
+            },
+            "fpr": {
+              "mean": 0.0,
+              "std": 0.0,
+              "ci_lower": 0.0,
+              "ci_upper": 0.0
+            },
+            "fnr": {
+              "mean": 0.029124245043557262,
+              "std": 0.00756654818499954,
+              "ci_lower": 0.014553014553014554,
+              "ci_upper": 0.04357072920350928
+            },
+            "roc_auc": {
+              "mean": 0.9981268805171437,
+              "std": 0.001326982891267999,
+              "ci_lower": 0.9950443101579904,
+              "ci_upper": 1.0
+            },
+            "pr_auc": {
+              "mean": 0.9998040397938248,
+              "std": 0.0001428396955960077,
+              "ci_lower": 0.9994605910918128,
+              "ci_upper": 1.0
+            }
+          }
+        }
+      },
+      "folds": [
+        {
+          "fold": 1,
+          "train_size": 434,
+          "val_size": 104,
+          "val_benign": 8,
+          "val_malicious": 96,
+          "tau_0_50": {
+            "accuracy": 0.9903846153846154,
+            "precision": 1.0,
+            "recall": 0.9895833333333334,
+            "f1": 0.9947643979057592,
+            "fpr": 0.0,
+            "fnr": 0.010416666666666666,
+            "confusion_matrix": {
+              "tn": 8,
+              "fp": 0,
+              "fn": 1,
+              "tp": 95
+            }
+          },
+          "tau_0_70": {
+            "accuracy": 0.8846153846153846,
+            "precision": 1.0,
+            "recall": 0.875,
+            "f1": 0.9333333333333333,
+            "fpr": 0.0,
+            "fnr": 0.125,
+            "confusion_matrix": {
+              "tn": 8,
+              "fp": 0,
+              "fn": 12,
+              "tp": 84
+            }
+          }
+        },
+        {
+          "fold": 2,
+          "train_size": 434,
+          "val_size": 104,
+          "val_benign": 9,
+          "val_malicious": 95,
+          "tau_0_50": {
+            "accuracy": 0.9807692307692307,
+            "precision": 0.979381443298969,
+            "recall": 1.0,
+            "f1": 0.9895833333333334,
+            "fpr": 0.2222222222222222,
+            "fnr": 0.0,
+            "confusion_matrix": {
+              "tn": 7,
+              "fp": 2,
+              "fn": 0,
+              "tp": 95
+            }
+          },
+          "tau_0_70": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "fpr": 0.0,
+            "fnr": 0.0,
+            "confusion_matrix": {
+              "tn": 9,
+              "fp": 0,
+              "fn": 0,
+              "tp": 95
+            }
+          }
+        },
+        {
+          "fold": 3,
+          "train_size": 417,
+          "val_size": 121,
+          "val_benign": 17,
+          "val_malicious": 104,
+          "tau_0_50": {
+            "accuracy": 0.9917355371900827,
+            "precision": 1.0,
+            "recall": 0.9903846153846154,
+            "f1": 0.9951690821256038,
+            "fpr": 0.0,
+            "fnr": 0.009615384615384616,
+            "confusion_matrix": {
+              "tn": 17,
+              "fp": 0,
+              "fn": 1,
+              "tp": 103
+            }
+          },
+          "tau_0_70": {
+            "accuracy": 0.9917355371900827,
+            "precision": 1.0,
+            "recall": 0.9903846153846154,
+            "f1": 0.9951690821256038,
+            "fpr": 0.0,
+            "fnr": 0.009615384615384616,
+            "confusion_matrix": {
+              "tn": 17,
+              "fp": 0,
+              "fn": 1,
+              "tp": 103
+            }
+          }
+        },
+        {
+          "fold": 4,
+          "train_size": 433,
+          "val_size": 105,
+          "val_benign": 10,
+          "val_malicious": 95,
+          "tau_0_50": {
+            "accuracy": 0.9809523809523809,
+            "precision": 0.979381443298969,
+            "recall": 1.0,
+            "f1": 0.9895833333333334,
+            "fpr": 0.2,
+            "fnr": 0.0,
+            "confusion_matrix": {
+              "tn": 8,
+              "fp": 2,
+              "fn": 0,
+              "tp": 95
+            }
+          },
+          "tau_0_70": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "fpr": 0.0,
+            "fnr": 0.0,
+            "confusion_matrix": {
+              "tn": 10,
+              "fp": 0,
+              "fn": 0,
+              "tp": 95
+            }
+          }
+        },
+        {
+          "fold": 5,
+          "train_size": 434,
+          "val_size": 104,
+          "val_benign": 9,
+          "val_malicious": 95,
+          "tau_0_50": {
+            "accuracy": 0.9711538461538461,
+            "precision": 0.9693877551020408,
+            "recall": 1.0,
+            "f1": 0.9844559585492227,
+            "fpr": 0.3333333333333333,
+            "fnr": 0.0,
+            "confusion_matrix": {
+              "tn": 6,
+              "fp": 3,
+              "fn": 0,
+              "tp": 95
+            }
+          },
+          "tau_0_70": {
+            "accuracy": 0.9903846153846154,
+            "precision": 1.0,
+            "recall": 0.9894736842105263,
+            "f1": 0.9947089947089947,
+            "fpr": 0.0,
+            "fnr": 0.010526315789473684,
+            "confusion_matrix": {
+              "tn": 9,
+              "fp": 0,
+              "fn": 1,
+              "tp": 94
+            }
+          }
+        }
+      ]
+    },
+    "independent_test": {
+      "tau_0_50": {
+        "test_total": 133,
+        "test_benign": 27,
+        "test_malicious": 106,
+        "accuracy": 0.9548872180451128,
+        "precision": 0.9545454545454546,
+        "recall": 0.9905660377358491,
+        "f1": 0.9722222222222222,
+        "fpr": 0.18518518518518517,
+        "fpr_fraction": "5/27",
+        "fnr": 0.009433962264150943,
+        "fnr_fraction": "1/106",
+        "roc_auc": 0.9965059399021664,
+        "pr_auc": 0.9991726902657605,
+        "confusion_matrix": {
+          "tn": 22,
+          "fp": 5,
+          "fn": 1,
+          "tp": 105
+        },
+        "bootstrap_95ci": {
+          "accuracy": {
+            "mean": 0.9542481203007519,
+            "std": 0.018132269157612776,
+            "ci_lower": 0.9172932330827067,
+            "ci_upper": 0.9849624060150376
+          },
+          "precision": {
+            "mean": 0.9539463665919891,
+            "std": 0.0196443038687823,
+            "ci_lower": 0.9106737012987013,
+            "ci_upper": 0.9905682419326397
+          },
+          "recall": {
+            "mean": 0.9904958889698052,
+            "std": 0.009670031487345533,
+            "ci_lower": 0.9702970297029703,
+            "ci_upper": 1.0
+          },
+          "f1": {
+            "mean": 0.9717541438541414,
+            "std": 0.011411738572376361,
+            "ci_lower": 0.9473684210526315,
+            "ci_upper": 0.9912280701754386
+          },
+          "fpr": {
+            "mean": 0.1888280174956211,
+            "std": 0.07611212116340874,
+            "ci_lower": 0.05256578947368421,
+            "ci_upper": 0.3500735294117646
+          },
+          "fnr": {
+            "mean": 0.00950411103019464,
+            "std": 0.009670031487345531,
+            "ci_lower": 0.0,
+            "ci_upper": 0.0297029702970297
+          },
+          "roc_auc": {
+            "mean": 0.9964386313417488,
+            "std": 0.003562777761849661,
+            "ci_lower": 0.9881369603916333,
+            "ci_upper": 1.0
+          },
+          "pr_auc": {
+            "mean": 0.9991641794356535,
+            "std": 0.000859615675089748,
+            "ci_lower": 0.99705212807026,
+            "ci_upper": 1.0
+          }
+        }
+      },
+      "tau_0_70_provisional": {
+        "test_total": 133,
+        "test_benign": 27,
+        "test_malicious": 106,
+        "accuracy": 0.9849624060150376,
+        "precision": 1.0,
+        "recall": 0.9811320754716981,
+        "f1": 0.9904761904761905,
+        "fpr": 0.0,
+        "fpr_fraction": "0/27",
+        "fnr": 0.018867924528301886,
+        "fnr_fraction": "2/106",
+        "roc_auc": 0.9965059399021664,
+        "pr_auc": 0.9991726902657605,
+        "confusion_matrix": {
+          "tn": 27,
+          "fp": 0,
+          "fn": 2,
+          "tp": 104
+        },
+        "bootstrap_95ci": {
+          "accuracy": {
+            "mean": 0.9850075187969924,
+            "std": 0.010643716949357947,
+            "ci_lower": 0.9624060150375939,
+            "ci_upper": 1.0
+          },
+          "precision": {
+            "mean": 1.0,
+            "std": 0.0,
+            "ci_lower": 1.0,
+            "ci_upper": 1.0
+          },
+          "recall": {
+            "mean": 0.9812035197846363,
+            "std": 0.013342308897792695,
+            "ci_lower": 0.9519230769230769,
+            "ci_upper": 1.0
+          },
+          "f1": {
+            "mean": 0.9904665904133606,
+            "std": 0.006831524077141079,
+            "ci_lower": 0.9753694581280788,
+            "ci_upper": 1.0
+          },
+          "fpr": {
+            "mean": 0.0,
+            "std": 0.0,
+            "ci_lower": 0.0,
+            "ci_upper": 0.0
+          },
+          "fnr": {
+            "mean": 0.018796480215363686,
+            "std": 0.013342308897792692,
+            "ci_lower": 0.0,
+            "ci_upper": 0.04807692307692308
+          },
+          "roc_auc": {
+            "mean": 0.9964386313417488,
+            "std": 0.003562777761849661,
+            "ci_lower": 0.9881369603916333,
+            "ci_upper": 1.0
+          },
+          "pr_auc": {
+            "mean": 0.9991641794356535,
+            "std": 0.000859615675089748,
+            "ci_lower": 0.99705212807026,
+            "ci_upper": 1.0
+          }
+        }
+      }
+    },
+    "per_category_breakdown": {
+      "Information Manipulation": {
+        "count": 108,
+        "label": 1,
+        "mean_malicious_probability": 0.9201095930681745,
+        "detection_rate_tau_50": 1.0,
+        "detection_rate_tau_70": 1.0,
+        "correct_tau_50": 108,
+        "correct_tau_70": 108
+      },
+      "Credential Leakage": {
+        "count": 40,
+        "label": 1,
+        "mean_malicious_probability": 0.8978932846550143,
+        "detection_rate_tau_50": 1.0,
+        "detection_rate_tau_70": 1.0,
+        "correct_tau_50": 40,
+        "correct_tau_70": 40
+      },
+      "Data Tampering": {
+        "count": 45,
+        "label": 1,
+        "mean_malicious_probability": 0.8553248987107308,
+        "detection_rate_tau_50": 0.9777777777777777,
+        "detection_rate_tau_70": 0.8444444444444444,
+        "correct_tau_50": 44,
+        "correct_tau_70": 38
+      },
+      "Privacy Leakage": {
+        "count": 97,
+        "label": 1,
+        "mean_malicious_probability": 0.883971564982712,
+        "detection_rate_tau_50": 0.9896907216494846,
+        "detection_rate_tau_70": 0.9484536082474226,
+        "correct_tau_50": 96,
+        "correct_tau_70": 92
+      },
+      "Instruction Tampering": {
+        "count": 21,
+        "label": 1,
+        "mean_malicious_probability": 0.945280924276765,
+        "detection_rate_tau_50": 1.0,
+        "detection_rate_tau_70": 1.0,
+        "correct_tau_50": 21,
+        "correct_tau_70": 21
+      },
+      "Code Injection": {
+        "count": 22,
+        "label": 1,
+        "mean_malicious_probability": 0.8794780084292891,
+        "detection_rate_tau_50": 1.0,
+        "detection_rate_tau_70": 0.9545454545454546,
+        "correct_tau_50": 22,
+        "correct_tau_70": 21
+      },
+      "Service Disruption": {
+        "count": 73,
+        "label": 1,
+        "mean_malicious_probability": 0.9334817858567176,
+        "detection_rate_tau_50": 1.0,
+        "detection_rate_tau_70": 0.9863013698630136,
+        "correct_tau_50": 73,
+        "correct_tau_70": 72
+      },
+      "Other": {
+        "count": 2,
+        "label": 1,
+        "mean_malicious_probability": 0.8700056863133692,
+        "detection_rate_tau_50": 1.0,
+        "detection_rate_tau_70": 1.0,
+        "correct_tau_50": 2,
+        "correct_tau_70": 2
+      },
+      "Message Hijacking": {
+        "count": 15,
+        "label": 1,
+        "mean_malicious_probability": 0.8503285754472397,
+        "detection_rate_tau_50": 1.0,
+        "detection_rate_tau_70": 1.0,
+        "correct_tau_50": 15,
+        "correct_tau_70": 15
+      },
+      "Financial Loss": {
+        "count": 21,
+        "label": 1,
+        "mean_malicious_probability": 0.9016609155361295,
+        "detection_rate_tau_50": 1.0,
+        "detection_rate_tau_70": 1.0,
+        "correct_tau_50": 21,
+        "correct_tau_70": 21
+      },
+      "Infrastructure Damage": {
+        "count": 41,
+        "label": 1,
+        "mean_malicious_probability": 0.8927559583535637,
+        "detection_rate_tau_50": 1.0,
+        "detection_rate_tau_70": 1.0,
+        "correct_tau_50": 41,
+        "correct_tau_70": 41
+      },
+      "benign": {
+        "count": 53,
+        "label": 0,
+        "mean_malicious_probability": 0.3016480567615891,
+        "detection_rate_tau_50": 0.8679245283018868,
+        "detection_rate_tau_70": 1.0,
+        "correct_tau_50": 46,
+        "correct_tau_70": 53
+      }
+    },
+    "ood_quarantined_evaluation": [
+      {
+        "candidate_id": "mcp_fetch_fetch",
+        "tool_name": "fetch",
+        "server_name": "fetch",
+        "description_snippet": "Fetches a URL from the internet and optionally extracts its contents as markdown.\n\nAlthough originally you did not have ...",
+        "predicted_malicious_probability": 0.6529,
+        "prediction_tau_50": "MALICIOUS",
+        "prediction_tau_70": "BENIGN",
+        "reason_for_quarantine": ""
+      },
+      {
+        "candidate_id": "mcp_sequentialthinking_sequentialthinking",
+        "tool_name": "sequentialthinking",
+        "server_name": "sequentialthinking",
+        "description_snippet": "A detailed tool for dynamic and reflective problem-solving through thoughts.\nThis tool helps analyze problems through a ...",
+        "predicted_malicious_probability": 0.6099,
+        "prediction_tau_50": "MALICIOUS",
+        "prediction_tau_70": "BENIGN",
+        "reason_for_quarantine": ""
+      },
+      {
+        "candidate_id": "mcp_puppeteer_puppeteer_navigate",
+        "tool_name": "puppeteer_navigate",
+        "server_name": "puppeteer",
+        "description_snippet": "Navigate to a URL...",
+        "predicted_malicious_probability": 0.3899,
+        "prediction_tau_50": "BENIGN",
+        "prediction_tau_70": "BENIGN",
+        "reason_for_quarantine": "Tool is legitimate and accurately implemented. However, the allowDangerous parameter and arbitrary URL traversal represent high-risk attack surfaces. It requires gateway policy validation (blocking private IPs and blocking allowDangerous: true) rather than unconditional allowance in naive training."
+      },
+      {
+        "candidate_id": "mcp_puppeteer_puppeteer_evaluate",
+        "tool_name": "puppeteer_evaluate",
+        "server_name": "puppeteer",
+        "description_snippet": "Execute JavaScript in the browser console...",
+        "predicted_malicious_probability": 0.1798,
+        "prediction_tau_50": "BENIGN",
+        "prediction_tau_70": "BENIGN",
+        "reason_for_quarantine": "Tool is genuine and documented, but provides an unconstrained code execution primitive. Training ML models to treat arbitrary code execution descriptions as standard benign can desensitize them to malicious payload execution. This tool must be managed with strict gateway isolation, auditing, or human approval."
+      }
+    ]
+  },
+  "module_3_gateway_empirical_evaluation": {
+    "benchmark_runs": 100,
+    "legitimate_tool_acceptance_rate": 1.0,
+    "malicious_tool_blocking_rate": 1.0,
+    "new_modified_tool_quarantine_rate": 1.0,
+    "direct_call_bypass_rejection_rate": 1.0,
+    "unauthorized_upstream_executions_count": 0,
+    "lifecycle_verification": {
+      "initial_quarantine_enforced": true,
+      "post_approval_execution_succeeded": true,
+      "post_revocation_blocking_enforced": true,
+      "lifecycle_integrity_sound": true
+    },
+    "latency_statistics_ms": {
+      "tools_list": {
+        "mean": 1.961,
+        "median": 1.888,
+        "p95": 2.737,
+        "min": 1.239,
+        "max": 4.131
+      },
+      "tools_call": {
+        "mean": 0.255,
+        "median": 0.25,
+        "p95": 0.345,
+        "min": 0.148,
+        "max": 0.539
+      }
+    }
+  },
+  "module_4_mdp_vs_threshold_simulation": {
+    "seeds_evaluated": [
+      42,
+      123,
+      456,
+      789,
+      1000
+    ],
+    "episodes_per_seed": 500,
+    "total_simulated_episodes": 2500,
+    "mdp_overall_mean_reward": 7.0024,
+    "mdp_mean_reward_std": 0.24869065121150025,
+    "static_overall_mean_reward": 7.046400000000001,
+    "static_mean_reward_std": 0.18470473735126572,
+    "seed_breakdown": [
+      {
+        "seed": 42,
+        "mdp_mean_reward": 7.248,
+        "static_mean_reward": 7.028,
+        "mdp_breaches": 7,
+        "static_breaches": 2,
+        "mdp_false_blocks": 5,
+        "static_false_blocks": 9,
+        "mdp_quarantines": 114,
+        "static_quarantines": 249
+      },
+      {
+        "seed": 123,
+        "mdp_mean_reward": 6.912,
+        "static_mean_reward": 7.1,
+        "mdp_breaches": 7,
+        "static_breaches": 2,
+        "mdp_false_blocks": 9,
+        "static_false_blocks": 9,
+        "mdp_quarantines": 126,
+        "static_quarantines": 240
+      },
+      {
+        "seed": 456,
+        "mdp_mean_reward": 6.736,
+        "static_mean_reward": 6.856,
+        "mdp_breaches": 7,
+        "static_breaches": 2,
+        "mdp_false_blocks": 13,
+        "static_false_blocks": 12,
+        "mdp_quarantines": 118,
+        "static_quarantines": 248
+      },
+      {
+        "seed": 789,
+        "mdp_mean_reward": 6.772,
+        "static_mean_reward": 7.368,
+        "mdp_breaches": 8,
+        "static_breaches": 1,
+        "mdp_false_blocks": 7,
+        "static_false_blocks": 9,
+        "mdp_quarantines": 131,
+        "static_quarantines": 234
+      },
+      {
+        "seed": 1000,
+        "mdp_mean_reward": 7.344,
+        "static_mean_reward": 6.88,
+        "mdp_breaches": 6,
+        "static_breaches": 1,
+        "mdp_false_blocks": 6,
+        "static_false_blocks": 13,
+        "mdp_quarantines": 122,
+        "static_quarantines": 265
+      }
+    ],
+    "penalty_sensitivity": [
+      {
+        "breach_penalty": -100.0,
+        "mean_reward": 7.14,
+        "policy_actions": [
+          "ALLOW",
+          "ALLOW",
+          "QUARANTINE",
+          "BLOCK"
+        ]
+      },
+      {
+        "breach_penalty": -250.0,
+        "mean_reward": 7.236,
+        "policy_actions": [
+          "ALLOW",
+          "QUARANTINE",
+          "QUARANTINE",
+          "BLOCK"
+        ]
+      },
+      {
+        "breach_penalty": -500.0,
+        "mean_reward": 7.236,
+        "policy_actions": [
+          "ALLOW",
+          "QUARANTINE",
+          "QUARANTINE",
+          "BLOCK"
+        ]
+      },
+      {
+        "breach_penalty": -1000.0,
+        "mean_reward": 7.236,
+        "policy_actions": [
+          "ALLOW",
+          "QUARANTINE",
+          "QUARANTINE",
+          "BLOCK"
+        ]
+      }
+    ],
+    "transition_sensitivity": [
+      {
+        "review_accuracy": 0.99,
+        "review_error_rate": 0.01,
+        "mean_reward": 7.26,
+        "breach_count": 5
+      },
+      {
+        "review_accuracy": 0.95,
+        "review_error_rate": 0.05,
+        "mean_reward": 6.36,
+        "breach_count": 8
+      },
+      {
+        "review_accuracy": 0.9,
+        "review_error_rate": 0.1,
+        "mean_reward": 5.9,
+        "breach_count": 9
+      },
+      {
+        "review_accuracy": 0.8,
+        "review_error_rate": 0.2,
+        "mean_reward": 4.8,
+        "breach_count": 11
+      }
+    ],
+    "mandatory_override_soundness": {
+      "threshold_policy_blocks_on_mandatory_violation": true,
+      "mdp_policy_blocks_on_mandatory_violation": true,
+      "mandatory_overrides_low_ml_score": true
+    }
+  },
+  "module_5_ablation_matrix": {
+    "S1_KNOWN_MALICIOUS": {
+      "scenario_name": "Known Malicious Tool (Prompt Injection)",
+      "configurations": {
+        "C1_hash_only": "BLOCK (False Block on benign / rejects new)",
+        "C2_ml_only": "BLOCK (ML detected)",
+        "C3_mandatory_rules_only": "BLOCK (Rule triggered)",
+        "C4_hash_plus_ml": "BLOCK (ML detected)",
+        "C5_hash_ml_mandatory": "BLOCK (Mandatory rule)",
+        "C6_full_gateway": "BLOCK (Mandatory rule overrides all)"
+      }
+    },
+    "S2_BENIGN_MODIFICATION": {
+      "scenario_name": "Benign Modification / Rewrite",
+      "configurations": {
+        "C1_hash_only": "BLOCK (False Block on benign / rejects new)",
+        "C2_ml_only": "ALLOW (Blindly allowed without authorization)",
+        "C3_mandatory_rules_only": "ALLOW (Unverified)",
+        "C4_hash_plus_ml": "BLOCK (False Block on benign rewrite)",
+        "C5_hash_ml_mandatory": "BLOCK (False Block on benign rewrite)",
+        "C6_full_gateway": "QUARANTINE (Safe hold awaiting human review; zero disruption)"
+      }
+    },
+    "S3_NEW_TOOL": {
+      "scenario_name": "Unknown / New Tool (Unapproved)",
+      "configurations": {
+        "C1_hash_only": "BLOCK (False Block on benign / rejects new)",
+        "C2_ml_only": "ALLOW (Blindly allowed without authorization)",
+        "C3_mandatory_rules_only": "ALLOW (Unverified)",
+        "C4_hash_plus_ml": "BLOCK (False Block on benign rewrite)",
+        "C5_hash_ml_mandatory": "BLOCK (False Block on benign rewrite)",
+        "C6_full_gateway": "QUARANTINE (Safe hold awaiting human review; zero disruption)"
+      }
+    },
+    "S4_DIRECT_BYPASS": {
+      "scenario_name": "Direct Call Bypass Attempt",
+      "configurations": {
+        "C1_hash_only": "BYPASS_EXECUTED (Failure)",
+        "C2_ml_only": "BYPASS_EXECUTED (Failure: No Gateway proxy)",
+        "C3_mandatory_rules_only": "BYPASS_EXECUTED (Failure)",
+        "C4_hash_plus_ml": "BYPASS_EXECUTED (Failure)",
+        "C5_hash_ml_mandatory": "BYPASS_EXECUTED (Failure)",
+        "C6_full_gateway": "BLOCKED (Proxy verifies tool authorization on tools/call)"
+      }
+    }
+  }
+}

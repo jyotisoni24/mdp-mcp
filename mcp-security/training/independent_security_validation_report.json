@@ -1,0 +1,236 @@
+{
+  "validation_metadata": {
+    "report_name": "independent_security_validation_report",
+    "timestamp": "2026-11-01T18:04:00Z",
+    "total_suite_tests": 86,
+    "suite_passed": 86,
+    "suite_failed": 0,
+    "suite_execution_time_seconds": 14.73,
+    "independent_validation_tests": 18,
+    "independent_validation_passed": 18,
+    "independent_validation_failed": 0
+  },
+  "verified_behaviors": {
+    "real_mcp_protocol": [
+      {
+        "property": "Protocol Initialization & Capability Negotiation",
+        "evidence": "real_protocol_session",
+        "status": "VERIFIED",
+        "details": "ClientSession negotiated protocolVersion 2025-11-25 and ToolsCapability over MemoryObject streams"
+      },
+      {
+        "property": "tools/list Protocol Filtering",
+        "evidence": "real_protocol_session",
+        "status": "VERIFIED",
+        "details": "Client received ListToolsResult containing only ALLOWed tools; quarantined and blocked tools stripped at protocol level"
+      },
+      {
+        "property": "tools/call Authorization Enforcement",
+        "evidence": "real_protocol_session",
+        "status": "VERIFIED",
+        "details": "Calls to unapproved tools return CallToolResult(isError=True) with diagnostic denial text"
+      },
+      {
+        "property": "Upstream Error Forwarding",
+        "evidence": "real_protocol_session",
+        "status": "VERIFIED",
+        "details": "Upstream exceptions (ZeroDivisionError) forwarded as CallToolResult(isError=True) with exact upstream error text"
+      },
+      {
+        "property": "Unknown Tool Name Handling",
+        "evidence": "real_protocol_session",
+        "status": "VERIFIED",
+        "details": "Unregistered tool invocations rejected with UNREGISTERED status without upstream query"
+      },
+      {
+        "property": "Session Cleanup & Teardown",
+        "evidence": "real_protocol_session",
+        "status": "VERIFIED",
+        "details": "Client and server task groups cancel and close stream channels without hang or leaked loops"
+      }
+    ],
+    "descriptor_integrity_and_lifecycle": [
+      {
+        "property": "Description Changes",
+        "evidence": "unit_and_protocol",
+        "status": "VERIFIED",
+        "details": "Character modifications change SHA-256 hash and trigger QUARANTINE"
+      },
+      {
+        "property": "Tool Name Changes",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Renaming a tool causes it to be treated as NEW_TOOL (quarantined) while old name disappears"
+      },
+      {
+        "property": "Input Schema Changes",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Modifying inputSchema with identical description triggers SCHEMA_MODIFIED and revokes automatic trust"
+      },
+      {
+        "property": "Tool Removal and Reappearance",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Removed tools disappear; reappearing tools matching approved baseline hash are re-allowed immediately"
+      },
+      {
+        "property": "Server Identity Namespacing",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Approving a tool on ServerA does not approve it on ServerB (keyed by server_name, tool_name)"
+      },
+      {
+        "property": "Descriptor Rollback",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Rolling back upstream text to exact approved baseline hash restores ALLOW; rolling back to unapproved draft stays QUARANTINED"
+      },
+      {
+        "property": "Registry Persistence Across Restarts",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "save_to_disk and load_from_disk persist approved descriptors, hashes, and version history across restarts"
+      },
+      {
+        "property": "Approval Non-Transitivity",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Approval of descriptor A never approves descriptor B, even with identical description or similar names"
+      }
+    ],
+    "security_enforcement": [
+      {
+        "property": "Unauthorized Tools Never Reach Upstream",
+        "evidence": "real_protocol_session",
+        "status": "VERIFIED",
+        "details": "Upstream execution counter strictly 0 for unregistered tools"
+      },
+      {
+        "property": "Quarantined Tools Never Reach Upstream",
+        "evidence": "real_protocol_session",
+        "status": "VERIFIED",
+        "details": "Upstream execution counter strictly 0 for quarantined tools"
+      },
+      {
+        "property": "Blocked Tools Never Reach Upstream",
+        "evidence": "real_protocol_session",
+        "status": "VERIFIED",
+        "details": "Upstream execution counter strictly 0 for prompt-injection and credential-access tools"
+      },
+      {
+        "property": "Direct-Call Bypass Prevention",
+        "evidence": "unit_and_protocol",
+        "status": "VERIFIED",
+        "details": "Attempting direct tools/call without prior tools/list inspection is denied with UNREGISTERED status"
+      },
+      {
+        "property": "Fail-Closed Model Loading Failure",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Missing model directory raises FileNotFoundError; interceptor without model refuses unverified changes"
+      },
+      {
+        "property": "Fail-Closed ML Prediction Failure",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Model prediction exceptions and uninitialized models assign CRITICAL risk and raise PredictionError"
+      },
+      {
+        "property": "Mandatory Security Rules Override",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Mandatory security rules trigger BLOCK regardless of ML score, threshold, or MDP policy mode"
+      },
+      {
+        "property": "Approval Revocation Enforcement",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "revoke_approval and revoke_tool_approval immediately revoke active decision and place tool in QUARANTINE"
+      }
+    ],
+    "ml_and_policy_separation": [
+      {
+        "property": "ML Score Is Probabilistic Risk, Not Proof of Malice",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Unapproved changes with medium/high risk are QUARANTINED (reviewable), not irreversibly purged"
+      },
+      {
+        "property": "Hash Mismatch != Malice",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Benign documentation rephrasing has hash mismatch but triggers QUARANTINE, not BLOCK"
+      },
+      {
+        "property": "MDP Policy Mode Constraint",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Mandatory security violations trigger RULE_MANDATORY_SECURITY_VIOLATION even when mode is 'mdp'"
+      },
+      {
+        "property": "Explicit Auditable Human Approval",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Promotions record UTC timestamps, version increments, and audit log entries"
+      }
+    ],
+    "security_edge_cases": [
+      {
+        "property": "Empty & Whitespace Descriptions",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Empty and whitespace strings evaluated as CRITICAL risk with probability 1.0 (fail-closed)"
+      },
+      {
+        "property": "Extremely Long Descriptions (50k characters)",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Evaluated in 4-6 ms without memory spike, buffer overflow, or timeout"
+      },
+      {
+        "property": "Unicode, Emojis, RTL, Control Characters",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Normalized and hashed deterministically without encoding exceptions"
+      },
+      {
+        "property": "Duplicate Tool Name Shadowing Defense",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Upstream returning [clean_tool, poisoned_duplicate] causes clean_tool to be stripped from allowed tools"
+      },
+      {
+        "property": "Malformed Upstream Objects",
+        "evidence": "unit_test",
+        "status": "VERIFIED",
+        "details": "Non-dict, non-Tool, and None objects in upstream tools/list are safely skipped without crashing"
+      }
+    ]
+  },
+  "untested_behaviors": [
+    "OS-level kernel stdio pipe redirection for arbitrary non-Python compiled binaries",
+    "Streaming chunked tool execution results over SSE / HTTP streaming transports",
+    "Dynamic runtime tool argument injection inspection (complementary input validation)",
+    "Asymmetric cryptographic signature verification of descriptor baseline hashes (PKI/HSM)"
+  ],
+  "known_limitations": [
+    {
+      "limitation": "Application Protocol Proxy",
+      "impact": "Requires upstream MCP servers or clients to route through the gateway MCP endpoint"
+    },
+    {
+      "limitation": "Stateless Registry Persistence",
+      "impact": "JSON file persistence is local; multi-node clusters require distributed key-value storage"
+    },
+    {
+      "limitation": "Statistical False Positives on High Imperative Descriptions",
+      "impact": "Benign developer tools with words like 'execute', 'overwrite', 'query' may score between 0.30 and 0.50, requiring initial manual approval"
+    }
+  ],
+  "evidence_distribution": {
+    "total_tests": 86,
+    "real_mcp_protocol_tests": 5,
+    "unit_and_integration_tests": 81
+  }
+}

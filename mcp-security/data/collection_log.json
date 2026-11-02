@@ -1,0 +1,64 @@
+{
+  "collection_timestamp": "2026-11-01T14:04:53.506550+00:00",
+  "total_servers_scanned": 9,
+  "total_extracted": 30,
+  "exact_duplicates_removed": 0,
+  "near_duplicates_flagged": 4,
+  "candidates_saved": 30,
+  "servers_breakdown": [
+    {
+      "server_name": "filesystem",
+      "category": "Local Filesystem",
+      "tools_found": 14,
+      "tools_selected": 5
+    },
+    {
+      "server_name": "git",
+      "category": "Version Control",
+      "tools_found": 12,
+      "tools_selected": 5
+    },
+    {
+      "server_name": "fetch",
+      "category": "Web Retrieval",
+      "tools_found": 1,
+      "tools_selected": 1
+    },
+    {
+      "server_name": "brave-search",
+      "category": "Web Search",
+      "tools_found": 2,
+      "tools_selected": 2
+    },
+    {
+      "server_name": "sqlite",
+      "category": "Relational Database",
+      "tools_found": 6,
+      "tools_selected": 4
+    },
+    {
+      "server_name": "memory",
+      "category": "Knowledge Graph",
+      "tools_found": 9,
+      "tools_selected": 5
+    },
+    {
+      "server_name": "time",
+      "category": "System Utilities",
+      "tools_found": 2,
+      "tools_selected": 2
+    },
+    {
+      "server_name": "sequentialthinking",
+      "category": "Reasoning",
+      "tools_found": 1,
+      "tools_selected": 1
+    },
+    {
+      "server_name": "github",
+      "category": "DevOps & Repositories",
+      "tools_found": 26,
+      "tools_selected": 5
+    }
+  ]
+}

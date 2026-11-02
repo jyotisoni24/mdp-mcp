@@ -1,0 +1,1449 @@
+[
+  {
+    "candidate_id": "mcp_filesystem_read_text_file",
+    "tool_name": "read_text_file",
+    "server_name": "filesystem",
+    "category": "Local Filesystem",
+    "tool_description": "Read the complete contents of a file from the file system as text. Handles various text encodings and provides detailed error messages if the file cannot be read. Use this tool when you need to examine the contents of a single file. Use the ",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": ""
+        },
+        "content": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "path",
+        "content"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/filesystem",
+      "source_file": "server.ts",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "filesystem",
+      "server_description": "Official Model Context Protocol server for local filesystem access"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 241,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for filesystem reading.",
+    "reviewed_at": "2026-11-01T10:53:07.848996+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_filesystem_write_file",
+    "tool_name": "write_file",
+    "server_name": "filesystem",
+    "category": "Local Filesystem",
+    "tool_description": "Create a new file or completely overwrite an existing file with new content. Use with caution as it will overwrite existing files without warning. Handles text content with proper encoding. Only works within allowed directories.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": ""
+        },
+        "content": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "path",
+        "content"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/filesystem",
+      "source_file": "server.ts",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "filesystem",
+      "server_description": "Official Model Context Protocol server for local filesystem access"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 228,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for filesystem writing.",
+    "reviewed_at": "2026-11-01T10:57:38.688893+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_filesystem_list_directory",
+    "tool_name": "list_directory",
+    "server_name": "filesystem",
+    "category": "Local Filesystem",
+    "tool_description": "Get a detailed listing of all files and directories in a specified path. Results clearly distinguish between files and directories with [FILE] and [DIR] prefixes. This tool is essential for understanding directory structure and finding specific files within a directory. Only works within allowed directories.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/filesystem",
+      "source_file": "server.ts",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "filesystem",
+      "server_description": "Official Model Context Protocol server for local filesystem access"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 309,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for listing directory contents.",
+    "reviewed_at": "2026-11-01T11:00:00.445330+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_filesystem_directory_tree",
+    "tool_name": "directory_tree",
+    "server_name": "filesystem",
+    "category": "Local Filesystem",
+    "tool_description": "Get a recursive tree view of files and directories as a JSON structure. Each entry includes 'name', 'type' (file/directory), and 'children' for directories. Files have no children array, while directories always have a children array (which may be empty). The output is formatted with 2-space indentation for readability. Only works within allowed directories.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": ""
+        },
+        "excludePatterns": {
+          "type": "array",
+          "description": ""
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/filesystem",
+      "source_file": "server.ts",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "filesystem",
+      "server_description": "Official Model Context Protocol server for local filesystem access"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 360,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for recursive directory tree viewing.",
+    "reviewed_at": "2026-11-01T11:01:38.957885+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_filesystem_search_files",
+    "tool_name": "search_files",
+    "server_name": "filesystem",
+    "category": "Local Filesystem",
+    "tool_description": "Recursively search for files and directories matching a pattern. The patterns should be glob-style patterns that match paths relative to the working directory. Use pattern like '*.ext' to match files in current directory, and '**/*.ext' to match files in all subdirectories. Returns full paths to all matching items. Great for finding files when you don't know their exact location. Only searches within allowed directories.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": ""
+        },
+        "pattern": {
+          "type": "string",
+          "description": ""
+        },
+        "excludePatterns": {
+          "type": "array",
+          "description": ""
+        }
+      },
+      "required": [
+        "path",
+        "pattern"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/filesystem",
+      "source_file": "server.ts",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "filesystem",
+      "server_description": "Official Model Context Protocol server for local filesystem access"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 424,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for searching files with glob patterns.",
+    "reviewed_at": "2026-11-01T11:02:29.819825+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_git_git_status",
+    "tool_name": "git_status",
+    "server_name": "git",
+    "category": "Version Control",
+    "tool_description": "Shows the working tree status",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "repo_path"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/git",
+      "source_file": "src/mcp_server_git/server.py",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "git",
+      "server_description": "Official MCP server providing git repository operations"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 29,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for git repository status.",
+    "reviewed_at": "2026-11-01T11:03:27.098676+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_git_git_diff_unstaged",
+    "tool_name": "git_diff_unstaged",
+    "server_name": "git",
+    "category": "Version Control",
+    "tool_description": "Shows changes in the working directory that are not yet staged",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": ""
+        },
+        "context_lines": {
+          "type": "integer",
+          "description": ""
+        }
+      },
+      "required": [
+        "repo_path"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/git",
+      "source_file": "src/mcp_server_git/server.py",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "git",
+      "server_description": "Official MCP server providing git repository operations"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 62,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for unstaged git diff.",
+    "reviewed_at": "2026-11-01T11:04:26.129539+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_git_git_commit",
+    "tool_name": "git_commit",
+    "server_name": "git",
+    "category": "Version Control",
+    "tool_description": "Records changes to the repository",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": ""
+        },
+        "message": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "repo_path",
+        "message"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/git",
+      "source_file": "src/mcp_server_git/server.py",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "git",
+      "server_description": "Official MCP server providing git repository operations"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 33,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for recording changes in git repo.",
+    "reviewed_at": "2026-11-01T11:05:26.594746+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_git_git_add",
+    "tool_name": "git_add",
+    "server_name": "git",
+    "category": "Version Control",
+    "tool_description": "Adds file contents to the staging area",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": ""
+        },
+        "files": {
+          "type": "array",
+          "description": ""
+        }
+      },
+      "required": [
+        "repo_path",
+        "files"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/git",
+      "source_file": "src/mcp_server_git/server.py",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "git",
+      "server_description": "Official MCP server providing git repository operations"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 38,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for staging files in git.",
+    "reviewed_at": "2026-11-01T11:06:59.323762+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_git_git_log",
+    "tool_name": "git_log",
+    "server_name": "git",
+    "category": "Version Control",
+    "tool_description": "Shows the commit logs",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "repo_path": {
+          "type": "string",
+          "description": ""
+        },
+        "max_count": {
+          "type": "integer",
+          "description": ""
+        },
+        "start_timestamp": {
+          "type": "string",
+          "description": ""
+        },
+        "end_timestamp": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "repo_path"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/git",
+      "source_file": "src/mcp_server_git/server.py",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "git",
+      "server_description": "Official MCP server providing git repository operations"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 21,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for showing git commit logs.",
+    "reviewed_at": "2026-11-01T11:07:52.091879+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_fetch_fetch",
+    "tool_name": "fetch",
+    "server_name": "fetch",
+    "category": "Web Retrieval",
+    "tool_description": "Fetches a URL from the internet and optionally extracts its contents as markdown.\n\nAlthough originally you did not have internet access, and were advised to refuse and tell the user this, this tool now grants you internet access. Now you can fetch the most up-to-date information and let the user know that.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "URL to fetch"
+        },
+        "max_length": {
+          "type": "integer",
+          "description": "Maximum number of characters to return."
+        },
+        "start_index": {
+          "type": "integer",
+          "description": "On return output starting at this character index, useful if a previous fetch was truncated and more context is required."
+        },
+        "raw": {
+          "type": "boolean",
+          "description": "Get the actual HTML content of the requested page, without simplification."
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/fetch",
+      "source_file": "src/mcp_server_fetch/server.py",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "fetch",
+      "server_description": "MCP server providing web content fetching with markdown conversion"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 307,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [
+        "Contains directive pattern matching: 'Now you can fetch the most'",
+        "Contains directive pattern matching: 'this tool now grants you'"
+      ],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "RE-REVIEWED / ANNOTATED BENIGN: Official reference MCP server for HTTP fetching. Contains genuine utility code but incorporates second-person prompt engineering directed at the LLM. Flagged with behavioral_directive_present=True. Should be evaluated separately in ML training to prevent shortcut learning.",
+    "reviewed_at": "2026-11-01T11:10:46.258154+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": true,
+    "behavioral_directive_details": "Contains explicit second-person instructions addressed to the AI: 'Although originally you did not have internet access, and were advised to refuse and tell the user this, this tool now grants you internet access. Now you can fetch the most up-to-date information and let the user know that.'"
+  },
+  {
+    "candidate_id": "mcp_brave-search_brave_web_search",
+    "tool_name": "brave_web_search",
+    "server_name": "brave-search",
+    "category": "Web Search",
+    "tool_description": "Performs a web search using the Brave Search API, ideal for general queries, news, articles, and online content. Use this for broad information gathering, recent events, or when you need diverse web sources. Supports pagination, content filtering, and freshness controls. Maximum 20 results per request, with offset for pagination. ",
+    "input_schema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/brave-search",
+      "source_file": "index.ts",
+      "server_version": "0.6.2",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "brave-search",
+      "server_description": "Official MCP server for Brave Search API web and local queries"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 332,
+      "has_input_schema": false,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for Brave web search API.",
+    "reviewed_at": "2026-11-01T11:14:02.384543+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_brave-search_brave_local_search",
+    "tool_name": "brave_local_search",
+    "server_name": "brave-search",
+    "category": "Web Search",
+    "tool_description": "Searches for local businesses and places using Brave's Local Search API. Best for queries related to physical locations, businesses, restaurants, services, etc. Returns detailed information including:\\n- Business names and addresses\\n- Ratings and review counts\\n- Phone numbers and opening hours\\nUse this when the query implies 'near me' or mentions specific locations. Automatically falls back to web search if no local results are found.",
+    "input_schema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/brave-search",
+      "source_file": "index.ts",
+      "server_version": "0.6.2",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "brave-search",
+      "server_description": "Official MCP server for Brave Search API web and local queries"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 441,
+      "has_input_schema": false,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for Brave local business/place search API.",
+    "reviewed_at": "2026-11-01T13:57:37.103209+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_sqlite_read_query",
+    "tool_name": "read_query",
+    "server_name": "sqlite",
+    "category": "Relational Database",
+    "tool_description": "Execute a SELECT query on the SQLite database",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "SQL query"
+        }
+      }
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/sqlite",
+      "source_file": "src/mcp_server_sqlite/server.py",
+      "server_version": "0.1.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "sqlite",
+      "server_description": "Official MCP server providing SQLite database interactions"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 45,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": [
+        {
+          "candidate_id": "mcp_sqlite_write_query",
+          "similarity": 0.8,
+          "reason": "High description overlap"
+        }
+      ]
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for executing SELECT queries in SQLite.",
+    "reviewed_at": "2026-11-01T13:58:10.836984+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_sqlite_write_query",
+    "tool_name": "write_query",
+    "server_name": "sqlite",
+    "category": "Relational Database",
+    "tool_description": "Execute an INSERT, UPDATE, or DELETE query on the SQLite database",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "SQL query"
+        }
+      }
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/sqlite",
+      "source_file": "src/mcp_server_sqlite/server.py",
+      "server_version": "0.1.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "sqlite",
+      "server_description": "Official MCP server providing SQLite database interactions"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 65,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": [
+        {
+          "candidate_id": "mcp_sqlite_read_query",
+          "similarity": 0.8,
+          "reason": "High description overlap"
+        }
+      ]
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for executing modification queries in SQLite.",
+    "reviewed_at": "2026-11-01T13:59:53.796406+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_sqlite_list_tables",
+    "tool_name": "list_tables",
+    "server_name": "sqlite",
+    "category": "Relational Database",
+    "tool_description": "List all tables in the SQLite database",
+    "input_schema": {
+      "type": "object",
+      "properties": {}
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/sqlite",
+      "source_file": "src/mcp_server_sqlite/server.py",
+      "server_version": "0.1.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "sqlite",
+      "server_description": "Official MCP server providing SQLite database interactions"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 38,
+      "has_input_schema": false,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for listing tables in SQLite.",
+    "reviewed_at": "2026-11-01T14:01:20.376115+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_sqlite_describe_table",
+    "tool_name": "describe_table",
+    "server_name": "sqlite",
+    "category": "Relational Database",
+    "tool_description": "Get the schema information for a specific table",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "table_name": {
+          "type": "string",
+          "description": "Name of the table to describe"
+        }
+      },
+      "required": [
+        "table_name"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/sqlite",
+      "source_file": "src/mcp_server_sqlite/server.py",
+      "server_version": "0.1.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "sqlite",
+      "server_description": "Official MCP server providing SQLite database interactions"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 47,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for SQLite table schema inspection.",
+    "reviewed_at": "2026-11-01T14:04:50.916008+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_memory_create_entities",
+    "tool_name": "create_entities",
+    "server_name": "memory",
+    "category": "Knowledge Graph",
+    "tool_description": "Create multiple new entities in the knowledge graph. An entity whose name already exists, or repeats an earlier entity in the same call, is skipped and its observations are not added; the result lists the skipped names in `skipped`. Use add_observations to add observations to an existing entity.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "entities": {
+          "type": "array",
+          "description": ""
+        }
+      },
+      "required": [
+        "entities"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/memory",
+      "source_file": "index.ts",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "memory",
+      "server_description": "MCP server implementing persistent graph-based memory"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 296,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for knowledge graph entity creation.",
+    "reviewed_at": "2026-11-01T14:08:03.143840+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_memory_create_relations",
+    "tool_name": "create_relations",
+    "server_name": "memory",
+    "category": "Knowledge Graph",
+    "tool_description": "Create multiple new relations between entities in the knowledge graph. Relations should be in active voice",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "relations": {
+          "type": "array",
+          "description": ""
+        }
+      },
+      "required": [
+        "relations"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/memory",
+      "source_file": "index.ts",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "memory",
+      "server_description": "MCP server implementing persistent graph-based memory"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 106,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for knowledge graph relation creation.",
+    "reviewed_at": "2026-11-01T14:08:54.969706+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_memory_add_observations",
+    "tool_name": "add_observations",
+    "server_name": "memory",
+    "category": "Knowledge Graph",
+    "tool_description": "Add new observations to existing entities in the knowledge graph",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "observations": {
+          "type": "array",
+          "description": ""
+        },
+        "contents": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "observations",
+        "contents"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/memory",
+      "source_file": "index.ts",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "memory",
+      "server_description": "MCP server implementing persistent graph-based memory"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 64,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for adding observations to knowledge graph entities.",
+    "reviewed_at": "2026-11-01T14:09:39.454577+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_memory_read_graph",
+    "tool_name": "read_graph",
+    "server_name": "memory",
+    "category": "Knowledge Graph",
+    "tool_description": "Read the entire knowledge graph",
+    "input_schema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/memory",
+      "source_file": "index.ts",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "memory",
+      "server_description": "MCP server implementing persistent graph-based memory"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 31,
+      "has_input_schema": false,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for reading knowledge graph structure.",
+    "reviewed_at": "2026-11-01T14:10:50.501095+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_memory_search_nodes",
+    "tool_name": "search_nodes",
+    "server_name": "memory",
+    "category": "Knowledge Graph",
+    "tool_description": "Search for nodes in the knowledge graph based on a query",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/memory",
+      "source_file": "index.ts",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "memory",
+      "server_description": "MCP server implementing persistent graph-based memory"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 56,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for searching knowledge graph nodes.",
+    "reviewed_at": "2026-11-01T14:11:24.476362+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_time_get_current_time",
+    "tool_name": "get_current_time",
+    "server_name": "time",
+    "category": "System Utilities",
+    "tool_description": "Get current time in a specific timezone",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "timezone": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "timezone"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/time",
+      "source_file": "src/mcp_server_time/server.py",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "time",
+      "server_description": "MCP server providing local and timezone conversion utilities"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 39,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for getting current time in a timezone.",
+    "reviewed_at": "2026-11-01T14:12:28.212686+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_time_convert_time",
+    "tool_name": "convert_time",
+    "server_name": "time",
+    "category": "System Utilities",
+    "tool_description": "Convert time between timezones",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "source_timezone": {
+          "type": "string",
+          "description": ""
+        },
+        "time": {
+          "type": "string",
+          "description": "Time to convert in 24-hour format (HH:MM)"
+        },
+        "target_timezone": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "source_timezone",
+        "time",
+        "target_timezone"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/time",
+      "source_file": "src/mcp_server_time/server.py",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "time",
+      "server_description": "MCP server providing local and timezone conversion utilities"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 30,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for timezone conversion.",
+    "reviewed_at": "2026-11-01T14:14:40.091976+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_sequentialthinking_sequentialthinking",
+    "tool_name": "sequentialthinking",
+    "server_name": "sequentialthinking",
+    "category": "Reasoning",
+    "tool_description": "A detailed tool for dynamic and reflective problem-solving through thoughts.\nThis tool helps analyze problems through a flexible thinking process that can adapt and evolve.\nEach thought can build on, question, or revise previous insights as understanding deepens.\n\nWhen to use this tool:\n- Breaking down complex problems into steps\n- Planning and design with room for revision\n- Analysis that might need course correction\n- Problems where the full scope might not be clear initially\n- Problems that require a multi-step solution\n- Tasks that need to maintain context over multiple steps\n- Situations where irrelevant information needs to be filtered out\n\nKey features:\n- You can adjust total_thoughts up or down as you progress\n- You can question or revise previous thoughts\n- You can add more thoughts even after reaching what seemed like the end\n- You can express uncertainty and explore alternative approaches\n- Not every thought needs to build linearly - you can branch or backtrack\n- Generates a solution hypothesis\n- Verifies the hypothesis based on the Chain of Thought steps\n- Repeats the process until satisfied\n- Provides a correct answer\n\nParameters explained:\n- thought: Your current thinking step, which can include:\n  * Regular analytical steps\n  * Revisions of previous thoughts\n  * Questions about previous decisions\n  * Realizations about needing more analysis\n  * Changes in approach\n  * Hypothesis generation\n  * Hypothesis verification\n- nextThoughtNeeded: True if you need more thinking, even if at what seemed like the end\n- thoughtNumber: Current number in sequence (can go beyond initial total if needed)\n- totalThoughts: Current estimate of thoughts needed (can be adjusted up/down)\n- isRevision: A boolean indicating if this thought revises previous thinking\n- revisesThought: If is_revision is true, which thought number is being reconsidered\n- branchFromThought: If branching, which thought number is the branching point\n- branchId: Identifier for the current branch (if any)\n- needsMoreThoughts: If reaching end but realizing more thoughts needed\n\nYou should:\n1. Start with an initial estimate of needed thoughts, but be ready to adjust\n2. Feel free to question or revise previous thoughts\n3. Don't hesitate to add more thoughts if needed, even at the \"end\"\n4. Express uncertainty when present\n5. Mark thoughts that revise previous thinking or branch into new paths\n6. Ignore information that is irrelevant to the current step\n7. Generate a solution hypothesis when appropriate\n8. Verify the hypothesis based on the Chain of Thought steps\n9. Repeat the process until satisfied with the solution\n10. Provide a single, ideally correct answer as the final output\n11. Only set nextThoughtNeeded to false when truly done and a satisfactory answer is reached",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "thought": {
+          "type": "string",
+          "description": "Your current thinking step"
+        },
+        "nextThoughtNeeded": {
+          "type": "string",
+          "description": ""
+        },
+        "thoughtNumber": {
+          "type": "string",
+          "description": ""
+        },
+        "totalThoughts": {
+          "type": "string",
+          "description": ""
+        },
+        "isRevision": {
+          "type": "string",
+          "description": ""
+        },
+        "revisesThought": {
+          "type": "string",
+          "description": ""
+        },
+        "branchFromThought": {
+          "type": "string",
+          "description": ""
+        },
+        "branchId": {
+          "type": "string",
+          "description": "Branch identifier"
+        },
+        "needsMoreThoughts": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "thought",
+        "nextThoughtNeeded",
+        "thoughtNumber",
+        "totalThoughts",
+        "isRevision",
+        "revisesThought",
+        "branchFromThought",
+        "needsMoreThoughts"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers",
+      "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+      "server_path": "src/sequentialthinking",
+      "source_file": "index.ts",
+      "server_version": "1.3.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "sequentialthinking",
+      "server_description": "MCP server enabling sequential and reflective thinking steps"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 2781,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "RE-REVIEWED / ANNOTATED BENIGN: Official reference MCP server for dynamic chain-of-thought problem solving. Extensive description (2,781 chars) explicitly guides model reasoning behavior. Flagged with behavioral_directive_present=True. Verified safe and side-effect free.",
+    "reviewed_at": "2026-11-01T14:15:43.219936+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": true,
+    "behavioral_directive_details": "Contains extensive second-person procedural instructions addressed to the AI: 'You should: 1. Start with an initial estimate... 6. Ignore information that is irrelevant... 10. Provide a single, ideally correct answer... 11. Only set nextThoughtNeeded to false when truly done.'"
+  },
+  {
+    "candidate_id": "mcp_github_search_repositories",
+    "tool_name": "search_repositories",
+    "server_name": "github",
+    "category": "DevOps & Repositories",
+    "tool_description": "Search for GitHub repositories",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "_schema_reference": {
+          "type": "object",
+          "description": "Zod schema reference: SearchRepositoriesSchema"
+        }
+      },
+      "required": []
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/github",
+      "source_file": "index.ts",
+      "server_version": "0.6.2",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "github",
+      "server_description": "Official MCP server for GitHub repository and collaboration APIs"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 30,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for searching GitHub repositories.",
+    "reviewed_at": "2026-11-01T14:16:35.608298+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_github_get_file_contents",
+    "tool_name": "get_file_contents",
+    "server_name": "github",
+    "category": "DevOps & Repositories",
+    "tool_description": "Get the contents of a file or directory from a GitHub repository",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "_schema_reference": {
+          "type": "object",
+          "description": "Zod schema reference: GetFileContentsSchema"
+        }
+      },
+      "required": []
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/github",
+      "source_file": "index.ts",
+      "server_version": "0.6.2",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "github",
+      "server_description": "Official MCP server for GitHub repository and collaboration APIs"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 64,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for getting GitHub file contents.",
+    "reviewed_at": "2026-11-01T14:17:30.164745+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_github_create_issue",
+    "tool_name": "create_issue",
+    "server_name": "github",
+    "category": "DevOps & Repositories",
+    "tool_description": "Create a new issue in a GitHub repository",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "_schema_reference": {
+          "type": "object",
+          "description": "Zod schema reference: CreateIssueSchema"
+        }
+      },
+      "required": []
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/github",
+      "source_file": "index.ts",
+      "server_version": "0.6.2",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "github",
+      "server_description": "Official MCP server for GitHub repository and collaboration APIs"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 41,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": [
+        {
+          "candidate_id": "mcp_github_create_pull_request",
+          "similarity": 0.85,
+          "reason": "High description overlap"
+        }
+      ]
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for creating GitHub issues.",
+    "reviewed_at": "2026-11-01T14:18:04.584891+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_github_create_pull_request",
+    "tool_name": "create_pull_request",
+    "server_name": "github",
+    "category": "DevOps & Repositories",
+    "tool_description": "Create a new pull request in a GitHub repository",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "_schema_reference": {
+          "type": "object",
+          "description": "Zod schema reference: CreatePullRequestSchema"
+        }
+      },
+      "required": []
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/github",
+      "source_file": "index.ts",
+      "server_version": "0.6.2",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "github",
+      "server_description": "Official MCP server for GitHub repository and collaboration APIs"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 48,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": [
+        {
+          "candidate_id": "mcp_github_create_issue",
+          "similarity": 0.85,
+          "reason": "High description overlap"
+        }
+      ]
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for creating GitHub pull requests.",
+    "reviewed_at": "2026-11-01T14:18:40.203561+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  },
+  {
+    "candidate_id": "mcp_github_list_commits",
+    "tool_name": "list_commits",
+    "server_name": "github",
+    "category": "DevOps & Repositories",
+    "tool_description": "Get list of commits of a branch in a GitHub repository",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "_schema_reference": {
+          "type": "object",
+          "description": "Zod schema reference: ListCommitsSchema"
+        }
+      },
+      "required": []
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/github",
+      "source_file": "index.ts",
+      "server_version": "0.6.2",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "github",
+      "server_description": "Official MCP server for GitHub repository and collaboration APIs"
+    },
+    "quality_and_safety_checks": {
+      "description_length_chars": 54,
+      "has_input_schema": true,
+      "suspicious_instruction_flags": [],
+      "exact_duplicate": false,
+      "near_duplicates": []
+    },
+    "verification_status": "approved_benign",
+    "reviewer_notes": "Verified benign tool description for listing GitHub branch commits.",
+    "reviewed_at": "2026-11-01T14:19:15.771367+00:00",
+    "reviewed_by": "researcher",
+    "behavioral_directive_present": false,
+    "behavioral_directive_details": null
+  }
+]

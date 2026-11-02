@@ -1,0 +1,291 @@
+{
+  "dataset_metadata": {
+    "total_records": 513,
+    "malicious_count": 485,
+    "benign_count": 28,
+    "canonical_server_groups": 47
+  },
+  "cross_validation_summary": {
+    "num_folds": 5,
+    "split_algorithm": "StratifiedGroupKFold(groups=canonical_group, shuffle=True, random_state=42)",
+    "mean_accuracy": 0.978564263644218,
+    "std_accuracy": 0.016739240390009107,
+    "mean_precision": 0.9781148580644379,
+    "mean_recall": 1.0,
+    "mean_f1": 0.9888627317404998,
+    "mean_fpr": 0.3952380952380953,
+    "mean_fnr": 0.0,
+    "fold_details": [
+      {
+        "fold": 1,
+        "train_size": 410,
+        "test_size": 103,
+        "train_benign": 22,
+        "train_malicious": 388,
+        "test_benign": 6,
+        "test_malicious": 97,
+        "test_server_groups": [
+          "adfin",
+          "alphavantage",
+          "amapmap",
+          "brave-search",
+          "dodo payments",
+          "email",
+          "fetch",
+          "sqlite"
+        ],
+        "accuracy": 0.9514563106796117,
+        "precision": 0.9509803921568627,
+        "recall": 1.0,
+        "f1_score": 0.9748743718592965,
+        "fpr": 0.8333333333333334,
+        "fnr": 0.0,
+        "confusion_matrix": {
+          "tn": 1,
+          "fp": 5,
+          "fn": 0,
+          "tp": 97
+        }
+      },
+      {
+        "fold": 2,
+        "train_size": 411,
+        "test_size": 102,
+        "train_benign": 23,
+        "train_malicious": 388,
+        "test_benign": 5,
+        "test_malicious": 97,
+        "test_server_groups": [
+          "12306-mcp",
+          "awsknowledgebase",
+          "bravesearch",
+          "claude post",
+          "codacy",
+          "financial dataset",
+          "memory",
+          "puppeteer",
+          "redis"
+        ],
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "fpr": 0.0,
+        "fnr": 0.0,
+        "confusion_matrix": {
+          "tn": 5,
+          "fp": 0,
+          "fn": 0,
+          "tp": 97
+        }
+      },
+      {
+        "fold": 3,
+        "train_size": 409,
+        "test_size": 104,
+        "train_benign": 21,
+        "train_malicious": 388,
+        "test_benign": 7,
+        "test_malicious": 97,
+        "test_server_groups": [
+          "commander",
+          "e2b",
+          "github",
+          "gitlab",
+          "google maps",
+          "googledrive",
+          "hyperbrowser",
+          "mcp-simple-arxiv",
+          "quickchart",
+          "tavily",
+          "time"
+        ],
+        "accuracy": 0.9903846153846154,
+        "precision": 0.9897959183673469,
+        "recall": 1.0,
+        "f1_score": 0.9948717948717949,
+        "fpr": 0.14285714285714285,
+        "fnr": 0.0,
+        "confusion_matrix": {
+          "tn": 6,
+          "fp": 1,
+          "fn": 0,
+          "tp": 97
+        }
+      },
+      {
+        "fold": 4,
+        "train_size": 411,
+        "test_size": 102,
+        "train_benign": 23,
+        "train_malicious": 388,
+        "test_benign": 5,
+        "test_malicious": 97,
+        "test_server_groups": [
+          "apify",
+          "dumplingai",
+          "everart",
+          "git",
+          "gnucleus text to cad",
+          "op.gg",
+          "prisma",
+          "sequential thinking",
+          "wechat"
+        ],
+        "accuracy": 0.9803921568627451,
+        "precision": 0.9797979797979798,
+        "recall": 1.0,
+        "f1_score": 0.9897959183673469,
+        "fpr": 0.4,
+        "fnr": 0.0,
+        "confusion_matrix": {
+          "tn": 3,
+          "fp": 2,
+          "fn": 0,
+          "tp": 97
+        }
+      },
+      {
+        "fold": 5,
+        "train_size": 411,
+        "test_size": 102,
+        "train_benign": 23,
+        "train_malicious": 388,
+        "test_benign": 5,
+        "test_malicious": 97,
+        "test_server_groups": [
+          "agentql",
+          "baidumap",
+          "clickhouse",
+          "everything",
+          "filesystem",
+          "flomo",
+          "gyazo",
+          "keywordspeopleuse",
+          "sentry",
+          "slack"
+        ],
+        "accuracy": 0.9705882352941176,
+        "precision": 0.97,
+        "recall": 1.0,
+        "f1_score": 0.9847715736040609,
+        "fpr": 0.6,
+        "fnr": 0.0,
+        "confusion_matrix": {
+          "tn": 2,
+          "fp": 3,
+          "fn": 0,
+          "tp": 97
+        }
+      }
+    ]
+  },
+  "held_out_split_evaluation": {
+    "test_size": 102,
+    "test_benign_count": 5,
+    "test_malicious_count": 97,
+    "accuracy": 0.9705882352941176,
+    "precision": 0.97,
+    "recall": 1.0,
+    "f1_score": 0.9847715736040609,
+    "false_positive_rate": 0.6,
+    "false_negative_rate": 0.0,
+    "latency_per_sample_ms": 1.070781372511513,
+    "confusion_matrix": {
+      "tn": 2,
+      "fp": 3,
+      "fn": 0,
+      "tp": 97
+    },
+    "category_breakdown": {
+      "Code Injection": {
+        "total": 3,
+        "correct": 3,
+        "accuracy": 1.0,
+        "avg_probability": 0.8890313408008595
+      },
+      "Credential Leakage": {
+        "total": 26,
+        "correct": 26,
+        "accuracy": 1.0,
+        "avg_probability": 0.8995531937475836
+      },
+      "Data Tampering": {
+        "total": 4,
+        "correct": 4,
+        "accuracy": 1.0,
+        "avg_probability": 0.8916837056679934
+      },
+      "Financial Loss": {
+        "total": 2,
+        "correct": 2,
+        "accuracy": 1.0,
+        "avg_probability": 0.9068971872474574
+      },
+      "Information Manipulation": {
+        "total": 21,
+        "correct": 21,
+        "accuracy": 1.0,
+        "avg_probability": 0.9067506988327287
+      },
+      "Infrastructure Damage": {
+        "total": 9,
+        "correct": 9,
+        "accuracy": 1.0,
+        "avg_probability": 0.9121398174646586
+      },
+      "Instruction Tampering": {
+        "total": 6,
+        "correct": 6,
+        "accuracy": 1.0,
+        "avg_probability": 0.9049866317037775
+      },
+      "Message Hijacking": {
+        "total": 1,
+        "correct": 1,
+        "accuracy": 1.0,
+        "avg_probability": 0.889385643474136
+      },
+      "Privacy Leakage": {
+        "total": 11,
+        "correct": 11,
+        "accuracy": 1.0,
+        "avg_probability": 0.9165528821325878
+      },
+      "Service Disruption": {
+        "total": 14,
+        "correct": 14,
+        "accuracy": 1.0,
+        "avg_probability": 0.9185042683206117
+      },
+      "benign": {
+        "total": 5,
+        "correct": 2,
+        "accuracy": 0.4,
+        "avg_probability": 0.5182811850283491
+      }
+    },
+    "ood_directive_evaluation": [
+      {
+        "tool_name": "fetch",
+        "server_name": "fetch",
+        "description_snippet": "Fetches a URL from the internet and optionally extracts its contents as markdown.\n\nAlthough original...",
+        "malicious_probability": 0.6787679590093959,
+        "predicted_label": 1,
+        "predicted_status": "MALICIOUS",
+        "ground_truth_label": 0,
+        "observation": "Predicted as MALICIOUS (False Alarm) with 67.9% malicious probability. Confirms that directive-heavy text requires explicit policy gating rather than raw classifier authority."
+      },
+      {
+        "tool_name": "sequentialthinking",
+        "server_name": "sequentialthinking",
+        "description_snippet": "A detailed tool for dynamic and reflective problem-solving through thoughts.\nThis tool helps analyze...",
+        "malicious_probability": 0.7008208198497593,
+        "predicted_label": 1,
+        "predicted_status": "MALICIOUS",
+        "ground_truth_label": 0,
+        "observation": "Predicted as MALICIOUS (False Alarm) with 70.1% malicious probability. Confirms that directive-heavy text requires explicit policy gating rather than raw classifier authority."
+      }
+    ]
+  }
+}

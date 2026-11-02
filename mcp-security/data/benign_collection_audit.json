@@ -1,0 +1,937 @@
+{
+  "audit_metadata": {
+    "audit_version": "1.0",
+    "audit_date": "2026-11-01T14:30:00Z",
+    "auditor_role": "Senior ML & Cybersecurity Researcher",
+    "dataset_audited": "mcp-security/data/reviewed_benign.json",
+    "total_records_audited": 30,
+    "verified_records_count": 28,
+    "re_review_count": 2,
+    "behavioral_directives_count": 2,
+    "near_duplicate_groups_count": 2,
+    "server_families_count": 9,
+    "missing_provenance_count": 0,
+    "dataset_suitability_for_training": "CONDITIONALLY_SUITABLE"
+  },
+  "audit_dashboard": {
+    "total_candidates": 30,
+    "verified_standard_benign": 28,
+    "needing_special_handling_or_re_review": 2,
+    "behavioral_directives_present": 2,
+    "read_only_tools_count": 21,
+    "side_effectful_tools_count": 9,
+    "provenance_completeness_pct": 100.0,
+    "exact_duplicates_count": 0
+  },
+  "server_family_grouping": {
+    "filesystem": [
+      "read_text_file",
+      "write_file",
+      "list_directory",
+      "directory_tree",
+      "search_files"
+    ],
+    "git": [
+      "git_status",
+      "git_diff_unstaged",
+      "git_commit",
+      "git_add",
+      "git_log"
+    ],
+    "fetch": [
+      "fetch"
+    ],
+    "brave-search": [
+      "brave_web_search",
+      "brave_local_search"
+    ],
+    "sqlite": [
+      "read_query",
+      "write_query",
+      "list_tables",
+      "describe_table"
+    ],
+    "memory": [
+      "create_entities",
+      "create_relations",
+      "add_observations",
+      "read_graph",
+      "search_nodes"
+    ],
+    "time": [
+      "get_current_time",
+      "convert_time"
+    ],
+    "sequentialthinking": [
+      "sequentialthinking"
+    ],
+    "github": [
+      "search_repositories",
+      "get_file_contents",
+      "create_issue",
+      "create_pull_request",
+      "list_commits"
+    ]
+  },
+  "near_duplicate_analysis": [
+    {
+      "group_id": "ND-01",
+      "server_family": "github",
+      "tools": [
+        "create_issue",
+        "create_pull_request"
+      ],
+      "cosine_similarity": 0.511,
+      "risk_assessment": "Co-occurring API mutation tools with similar wording. Must be assigned together to either train or test split to prevent lexical leakage."
+    },
+    {
+      "group_id": "ND-02",
+      "server_family": "sqlite",
+      "tools": [
+        "read_query",
+        "write_query"
+      ],
+      "cosine_similarity": 0.507,
+      "risk_assessment": "Co-occurring database query execution tools. Must be grouped under 'sqlite' server family during GroupKFold splits."
+    }
+  ],
+  "behavioral_directive_deep_dive": [
+    {
+      "tool_name": "fetch",
+      "server_name": "fetch",
+      "finding": "Explicit second-person prompt instruction: 'Although originally you did not have internet access, and were advised to refuse and tell the user this, this tool now grants you internet access. Now you can fetch the most up-to-date information and let the user know that.'",
+      "security_analysis": "While originating from Anthropic's official MCP reference server, this docstring employs model-steering prompt engineering that syntactically mimics jailbreak/directive override framing. If included as a benign training example without careful handling, it risks teaching the classifier that constraint-override phrasing is benign, or causing false positives during inference.",
+      "recommendation": "Exclude from baseline training set; use as an out-of-distribution adversarial evaluation test case."
+    },
+    {
+      "tool_name": "sequentialthinking",
+      "server_name": "sequentialthinking",
+      "finding": "Contains 11 numbered procedural rules directed to the model ('You should:', 'Ignore information that is irrelevant', 'Provide a single... answer', 'Only set nextThoughtNeeded to false when truly done'). Description length: 2,781 characters.",
+      "security_analysis": "Legitimate meta-cognitive reasoning tool. Contains directive verbs ('ignore', 'should', 'provide') and extreme text length (2.7KB). In TF-IDF models, this disproportionately shifts word frequency vectors and introduces imperative tokens.",
+      "recommendation": "Exclude from standard TF-IDF training split; preserve as a dedicated long-context reasoning benchmark case."
+    }
+  ],
+  "side_effect_analysis": {
+    "principles_applied": [
+      "Modifying a filesystem, database, or git repository is standard utility function, NOT malicious behavior.",
+      "Maliciousness requires unauthorized actions, deceptive docstrings, backdoor instructions, or credential exfiltration.",
+      "All 9 side-effectful tools in this collection have been cross-referenced with upstream source code and verified side-effect safe."
+    ],
+    "audited_tools": {
+      "write_file": {
+        "is_side_effectful": true,
+        "mutation_target": "Local Filesystem",
+        "operation": "File Creation / Overwrite",
+        "implementation_verification": "Verified: Uses standard fs.writeFile within authorized directory boundaries. Free of unauthorized exfiltration or hidden subprocess spawning."
+      },
+      "git_commit": {
+        "is_side_effectful": true,
+        "mutation_target": "Local Git Repository",
+        "operation": "Git Commit Creation",
+        "implementation_verification": "Verified: Calls git.commit with user-supplied commit message. Legitimate version control operation."
+      },
+      "git_add": {
+        "is_side_effectful": true,
+        "mutation_target": "Local Git Staging Area",
+        "operation": "Git Staging",
+        "implementation_verification": "Verified: Calls git.add to stage files for commit. Legitimate version control operation."
+      },
+      "write_query": {
+        "is_side_effectful": true,
+        "mutation_target": "SQLite Database",
+        "operation": "SQL INSERT/UPDATE/DELETE",
+        "implementation_verification": "Verified: Executes standard SQL DML statements on user's local database. Legitimate database administration."
+      },
+      "create_entities": {
+        "is_side_effectful": true,
+        "mutation_target": "Knowledge Graph Storage",
+        "operation": "Graph Entity Insertion",
+        "implementation_verification": "Verified: Updates in-memory/JSON knowledge graph nodes. Side-effect is restricted to graph memory."
+      },
+      "create_relations": {
+        "is_side_effectful": true,
+        "mutation_target": "Knowledge Graph Storage",
+        "operation": "Graph Edge Insertion",
+        "implementation_verification": "Verified: Links knowledge graph nodes. Legitimate semantic memory tool."
+      },
+      "add_observations": {
+        "is_side_effectful": true,
+        "mutation_target": "Knowledge Graph Storage",
+        "operation": "Entity Observation Insertion",
+        "implementation_verification": "Verified: Appends observation strings to existing entities in knowledge graph."
+      },
+      "create_issue": {
+        "is_side_effectful": true,
+        "mutation_target": "GitHub Repository Issues",
+        "operation": "Issue Creation via GitHub API",
+        "implementation_verification": "Verified: Makes authenticated GitHub API POST request to /repos/{owner}/{repo}/issues. Authorized API operation."
+      },
+      "create_pull_request": {
+        "is_side_effectful": true,
+        "mutation_target": "GitHub Repository Pull Requests",
+        "operation": "PR Creation via GitHub API",
+        "implementation_verification": "Verified: Makes authenticated GitHub API POST request to create pull request. Authorized API operation."
+      }
+    }
+  },
+  "suitability_assessment": {
+    "verdict": "CONDITIONALLY_SUITABLE",
+    "conditions": [
+      "1. Group-Disjoint Splitting: When combining with the training set, splits must be grouped by 'server_name' (e.g. GroupKFold) to prevent near-duplicate leakage between companion tools.",
+      "2. Directive Segregation: The 2 tools with behavioral directives ('fetch' and 'sequentialthinking') must NOT be mixed into the standard training split as ordinary label=0 examples. They should be held out for adversarial stress-testing.",
+      "3. Balanced Weighting: The remaining 28 authentic tools provide diverse, real-world MCP descriptions that reduce the synthetic boilerplate bias of the original 200 synthetic safe examples."
+    ]
+  },
+  "detailed_records": [
+    {
+      "candidate_id": "mcp_filesystem_read_text_file",
+      "tool_name": "read_text_file",
+      "server_name": "filesystem",
+      "server_family": "filesystem",
+      "category": "Local Filesystem",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/filesystem",
+        "source_file": "server.ts",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 241,
+      "reviewer_notes": "Verified benign tool description for filesystem reading."
+    },
+    {
+      "candidate_id": "mcp_filesystem_write_file",
+      "tool_name": "write_file",
+      "server_name": "filesystem",
+      "server_family": "filesystem",
+      "category": "Local Filesystem",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": true,
+      "mutation_target": "Local Filesystem",
+      "side_effect_verification": "Verified: Uses standard fs.writeFile within authorized directory boundaries. Free of unauthorized exfiltration or hidden subprocess spawning.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/filesystem",
+        "source_file": "server.ts",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 228,
+      "reviewer_notes": "Verified benign tool description for filesystem writing."
+    },
+    {
+      "candidate_id": "mcp_filesystem_list_directory",
+      "tool_name": "list_directory",
+      "server_name": "filesystem",
+      "server_family": "filesystem",
+      "category": "Local Filesystem",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/filesystem",
+        "source_file": "server.ts",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 309,
+      "reviewer_notes": "Verified benign tool description for listing directory contents."
+    },
+    {
+      "candidate_id": "mcp_filesystem_directory_tree",
+      "tool_name": "directory_tree",
+      "server_name": "filesystem",
+      "server_family": "filesystem",
+      "category": "Local Filesystem",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/filesystem",
+        "source_file": "server.ts",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 360,
+      "reviewer_notes": "Verified benign tool description for recursive directory tree viewing."
+    },
+    {
+      "candidate_id": "mcp_filesystem_search_files",
+      "tool_name": "search_files",
+      "server_name": "filesystem",
+      "server_family": "filesystem",
+      "category": "Local Filesystem",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/filesystem",
+        "source_file": "server.ts",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 424,
+      "reviewer_notes": "Verified benign tool description for searching files with glob patterns."
+    },
+    {
+      "candidate_id": "mcp_git_git_status",
+      "tool_name": "git_status",
+      "server_name": "git",
+      "server_family": "git",
+      "category": "Version Control",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/git",
+        "source_file": "src/mcp_server_git/server.py",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 29,
+      "reviewer_notes": "Verified benign tool description for git repository status."
+    },
+    {
+      "candidate_id": "mcp_git_git_diff_unstaged",
+      "tool_name": "git_diff_unstaged",
+      "server_name": "git",
+      "server_family": "git",
+      "category": "Version Control",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/git",
+        "source_file": "src/mcp_server_git/server.py",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 62,
+      "reviewer_notes": "Verified benign tool description for unstaged git diff."
+    },
+    {
+      "candidate_id": "mcp_git_git_commit",
+      "tool_name": "git_commit",
+      "server_name": "git",
+      "server_family": "git",
+      "category": "Version Control",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": true,
+      "mutation_target": "Local Git Repository",
+      "side_effect_verification": "Verified: Calls git.commit with user-supplied commit message. Legitimate version control operation.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/git",
+        "source_file": "src/mcp_server_git/server.py",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 33,
+      "reviewer_notes": "Verified benign tool description for recording changes in git repo."
+    },
+    {
+      "candidate_id": "mcp_git_git_add",
+      "tool_name": "git_add",
+      "server_name": "git",
+      "server_family": "git",
+      "category": "Version Control",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": true,
+      "mutation_target": "Local Git Staging Area",
+      "side_effect_verification": "Verified: Calls git.add to stage files for commit. Legitimate version control operation.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/git",
+        "source_file": "src/mcp_server_git/server.py",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 38,
+      "reviewer_notes": "Verified benign tool description for staging files in git."
+    },
+    {
+      "candidate_id": "mcp_git_git_log",
+      "tool_name": "git_log",
+      "server_name": "git",
+      "server_family": "git",
+      "category": "Version Control",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/git",
+        "source_file": "src/mcp_server_git/server.py",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 21,
+      "reviewer_notes": "Verified benign tool description for showing git commit logs."
+    },
+    {
+      "candidate_id": "mcp_fetch_fetch",
+      "tool_name": "fetch",
+      "server_name": "fetch",
+      "server_family": "fetch",
+      "category": "Web Retrieval",
+      "verification_status": "NEEDS_RE_REVIEW_BEFORE_TRAINING",
+      "behavioral_directive_present": true,
+      "behavioral_directive_details": "Contains explicit second-person instructions addressed to the AI: 'Although originally you did not have internet access, and were advised to refuse and tell the user this, this tool now grants you internet access. Now you can fetch the most up-to-date information and let the user know that.'",
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/fetch",
+        "source_file": "src/mcp_server_fetch/server.py",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 307,
+      "reviewer_notes": "RE-REVIEWED / ANNOTATED BENIGN: Official reference MCP server for HTTP fetching. Contains genuine utility code but incorporates second-person prompt engineering directed at the LLM. Flagged with behavioral_directive_present=True. Should be evaluated separately in ML training to prevent shortcut learning."
+    },
+    {
+      "candidate_id": "mcp_brave-search_brave_web_search",
+      "tool_name": "brave_web_search",
+      "server_name": "brave-search",
+      "server_family": "brave-search",
+      "category": "Web Search",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+        "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+        "server_path": "src/brave-search",
+        "source_file": "index.ts",
+        "server_version": "0.6.2",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 332,
+      "reviewer_notes": "Verified benign tool description for Brave web search API."
+    },
+    {
+      "candidate_id": "mcp_brave-search_brave_local_search",
+      "tool_name": "brave_local_search",
+      "server_name": "brave-search",
+      "server_family": "brave-search",
+      "category": "Web Search",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+        "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+        "server_path": "src/brave-search",
+        "source_file": "index.ts",
+        "server_version": "0.6.2",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 441,
+      "reviewer_notes": "Verified benign tool description for Brave local business/place search API."
+    },
+    {
+      "candidate_id": "mcp_sqlite_read_query",
+      "tool_name": "read_query",
+      "server_name": "sqlite",
+      "server_family": "sqlite",
+      "category": "Relational Database",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+        "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+        "server_path": "src/sqlite",
+        "source_file": "src/mcp_server_sqlite/server.py",
+        "server_version": "0.1.0",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 45,
+      "reviewer_notes": "Verified benign tool description for executing SELECT queries in SQLite."
+    },
+    {
+      "candidate_id": "mcp_sqlite_write_query",
+      "tool_name": "write_query",
+      "server_name": "sqlite",
+      "server_family": "sqlite",
+      "category": "Relational Database",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": true,
+      "mutation_target": "SQLite Database",
+      "side_effect_verification": "Verified: Executes standard SQL DML statements on user's local database. Legitimate database administration.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+        "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+        "server_path": "src/sqlite",
+        "source_file": "src/mcp_server_sqlite/server.py",
+        "server_version": "0.1.0",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 65,
+      "reviewer_notes": "Verified benign tool description for executing modification queries in SQLite."
+    },
+    {
+      "candidate_id": "mcp_sqlite_list_tables",
+      "tool_name": "list_tables",
+      "server_name": "sqlite",
+      "server_family": "sqlite",
+      "category": "Relational Database",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+        "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+        "server_path": "src/sqlite",
+        "source_file": "src/mcp_server_sqlite/server.py",
+        "server_version": "0.1.0",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 38,
+      "reviewer_notes": "Verified benign tool description for listing tables in SQLite."
+    },
+    {
+      "candidate_id": "mcp_sqlite_describe_table",
+      "tool_name": "describe_table",
+      "server_name": "sqlite",
+      "server_family": "sqlite",
+      "category": "Relational Database",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+        "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+        "server_path": "src/sqlite",
+        "source_file": "src/mcp_server_sqlite/server.py",
+        "server_version": "0.1.0",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 47,
+      "reviewer_notes": "Verified benign tool description for SQLite table schema inspection."
+    },
+    {
+      "candidate_id": "mcp_memory_create_entities",
+      "tool_name": "create_entities",
+      "server_name": "memory",
+      "server_family": "memory",
+      "category": "Knowledge Graph",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": true,
+      "mutation_target": "Knowledge Graph Storage",
+      "side_effect_verification": "Verified: Updates in-memory/JSON knowledge graph nodes. Side-effect is restricted to graph memory.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/memory",
+        "source_file": "index.ts",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 296,
+      "reviewer_notes": "Verified benign tool description for knowledge graph entity creation."
+    },
+    {
+      "candidate_id": "mcp_memory_create_relations",
+      "tool_name": "create_relations",
+      "server_name": "memory",
+      "server_family": "memory",
+      "category": "Knowledge Graph",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": true,
+      "mutation_target": "Knowledge Graph Storage",
+      "side_effect_verification": "Verified: Links knowledge graph nodes. Legitimate semantic memory tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/memory",
+        "source_file": "index.ts",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 106,
+      "reviewer_notes": "Verified benign tool description for knowledge graph relation creation."
+    },
+    {
+      "candidate_id": "mcp_memory_add_observations",
+      "tool_name": "add_observations",
+      "server_name": "memory",
+      "server_family": "memory",
+      "category": "Knowledge Graph",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": true,
+      "mutation_target": "Knowledge Graph Storage",
+      "side_effect_verification": "Verified: Appends observation strings to existing entities in knowledge graph.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/memory",
+        "source_file": "index.ts",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 64,
+      "reviewer_notes": "Verified benign tool description for adding observations to knowledge graph entities."
+    },
+    {
+      "candidate_id": "mcp_memory_read_graph",
+      "tool_name": "read_graph",
+      "server_name": "memory",
+      "server_family": "memory",
+      "category": "Knowledge Graph",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/memory",
+        "source_file": "index.ts",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 31,
+      "reviewer_notes": "Verified benign tool description for reading knowledge graph structure."
+    },
+    {
+      "candidate_id": "mcp_memory_search_nodes",
+      "tool_name": "search_nodes",
+      "server_name": "memory",
+      "server_family": "memory",
+      "category": "Knowledge Graph",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/memory",
+        "source_file": "index.ts",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 56,
+      "reviewer_notes": "Verified benign tool description for searching knowledge graph nodes."
+    },
+    {
+      "candidate_id": "mcp_time_get_current_time",
+      "tool_name": "get_current_time",
+      "server_name": "time",
+      "server_family": "time",
+      "category": "System Utilities",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/time",
+        "source_file": "src/mcp_server_time/server.py",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 39,
+      "reviewer_notes": "Verified benign tool description for getting current time in a timezone."
+    },
+    {
+      "candidate_id": "mcp_time_convert_time",
+      "tool_name": "convert_time",
+      "server_name": "time",
+      "server_family": "time",
+      "category": "System Utilities",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/time",
+        "source_file": "src/mcp_server_time/server.py",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 30,
+      "reviewer_notes": "Verified benign tool description for timezone conversion."
+    },
+    {
+      "candidate_id": "mcp_sequentialthinking_sequentialthinking",
+      "tool_name": "sequentialthinking",
+      "server_name": "sequentialthinking",
+      "server_family": "sequentialthinking",
+      "category": "Reasoning",
+      "verification_status": "NEEDS_RE_REVIEW_BEFORE_TRAINING",
+      "behavioral_directive_present": true,
+      "behavioral_directive_details": "Contains extensive second-person procedural instructions addressed to the AI: 'You should: 1. Start with an initial estimate... 6. Ignore information that is irrelevant... 10. Provide a single, ideally correct answer... 11. Only set nextThoughtNeeded to false when truly done.'",
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers",
+        "commit_hash": "194cc86e3ae6400958555bd4116849d822d69263",
+        "server_path": "src/sequentialthinking",
+        "source_file": "index.ts",
+        "server_version": "1.3.1",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 2781,
+      "reviewer_notes": "RE-REVIEWED / ANNOTATED BENIGN: Official reference MCP server for dynamic chain-of-thought problem solving. Extensive description (2,781 chars) explicitly guides model reasoning behavior. Flagged with behavioral_directive_present=True. Verified safe and side-effect free."
+    },
+    {
+      "candidate_id": "mcp_github_search_repositories",
+      "tool_name": "search_repositories",
+      "server_name": "github",
+      "server_family": "github",
+      "category": "DevOps & Repositories",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+        "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+        "server_path": "src/github",
+        "source_file": "index.ts",
+        "server_version": "0.6.2",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 30,
+      "reviewer_notes": "Verified benign tool description for searching GitHub repositories."
+    },
+    {
+      "candidate_id": "mcp_github_get_file_contents",
+      "tool_name": "get_file_contents",
+      "server_name": "github",
+      "server_family": "github",
+      "category": "DevOps & Repositories",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+        "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+        "server_path": "src/github",
+        "source_file": "index.ts",
+        "server_version": "0.6.2",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 64,
+      "reviewer_notes": "Verified benign tool description for getting GitHub file contents."
+    },
+    {
+      "candidate_id": "mcp_github_create_issue",
+      "tool_name": "create_issue",
+      "server_name": "github",
+      "server_family": "github",
+      "category": "DevOps & Repositories",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": true,
+      "mutation_target": "GitHub Repository Issues",
+      "side_effect_verification": "Verified: Makes authenticated GitHub API POST request to /repos/{owner}/{repo}/issues. Authorized API operation.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+        "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+        "server_path": "src/github",
+        "source_file": "index.ts",
+        "server_version": "0.6.2",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 41,
+      "reviewer_notes": "Verified benign tool description for creating GitHub issues."
+    },
+    {
+      "candidate_id": "mcp_github_create_pull_request",
+      "tool_name": "create_pull_request",
+      "server_name": "github",
+      "server_family": "github",
+      "category": "DevOps & Repositories",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": true,
+      "mutation_target": "GitHub Repository Pull Requests",
+      "side_effect_verification": "Verified: Makes authenticated GitHub API POST request to create pull request. Authorized API operation.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+        "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+        "server_path": "src/github",
+        "source_file": "index.ts",
+        "server_version": "0.6.2",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 48,
+      "reviewer_notes": "Verified benign tool description for creating GitHub pull requests."
+    },
+    {
+      "candidate_id": "mcp_github_list_commits",
+      "tool_name": "list_commits",
+      "server_name": "github",
+      "server_family": "github",
+      "category": "DevOps & Repositories",
+      "verification_status": "VERIFIED_BENIGN",
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": null,
+      "is_side_effectful": false,
+      "mutation_target": "None (Read-Only / Pure Computation)",
+      "side_effect_verification": "Verified: Safe read-only inspection tool.",
+      "provenance": {
+        "source_type": "official_reference_server",
+        "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+        "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+        "server_path": "src/github",
+        "source_file": "index.ts",
+        "server_version": "0.6.2",
+        "license": "MIT",
+        "provenance_complete": true
+      },
+      "description_length_chars": 54,
+      "reviewer_notes": "Verified benign tool description for listing GitHub branch commits."
+    }
+  ]
+}

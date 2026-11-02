@@ -1,0 +1,89 @@
+{
+  "states": {
+    "0": "LOW_RISK_APPROVED",
+    "1": "LOW_RISK_UNVERIFIED",
+    "2": "MEDIUM_RISK_UNVERIFIED",
+    "3": "HIGH_RISK_UNVERIFIED",
+    "4": "QUARANTINED_AWAITING_REVIEW",
+    "5": "REVIEW_CONFIRMED_SAFE",
+    "6": "REVIEW_CONFIRMED_MALICIOUS",
+    "7": "TERMINAL"
+  },
+  "actions": {
+    "0": "ALLOW",
+    "1": "QUARANTINE",
+    "2": "BLOCK"
+  },
+  "value_iteration_policy": {
+    "LOW_RISK_APPROVED": "ALLOW",
+    "LOW_RISK_UNVERIFIED": "ALLOW",
+    "MEDIUM_RISK_UNVERIFIED": "QUARANTINE",
+    "HIGH_RISK_UNVERIFIED": "BLOCK",
+    "QUARANTINED_AWAITING_REVIEW": "QUARANTINE",
+    "REVIEW_CONFIRMED_SAFE": "ALLOW",
+    "REVIEW_CONFIRMED_MALICIOUS": "BLOCK",
+    "TERMINAL": "ALLOW"
+  },
+  "q_learning_policy": {
+    "LOW_RISK_APPROVED": "ALLOW",
+    "LOW_RISK_UNVERIFIED": "QUARANTINE",
+    "MEDIUM_RISK_UNVERIFIED": "QUARANTINE",
+    "HIGH_RISK_UNVERIFIED": "BLOCK",
+    "QUARANTINED_AWAITING_REVIEW": "QUARANTINE",
+    "REVIEW_CONFIRMED_SAFE": "ALLOW",
+    "REVIEW_CONFIRMED_MALICIOUS": "BLOCK",
+    "TERMINAL": "ALLOW"
+  },
+  "value_function": {
+    "LOW_RISK_APPROVED": 10.0,
+    "LOW_RISK_UNVERIFIED": 4.5,
+    "MEDIUM_RISK_UNVERIFIED": 4.49,
+    "HIGH_RISK_UNVERIFIED": 8.5,
+    "QUARANTINED_AWAITING_REVIEW": 6.84,
+    "REVIEW_CONFIRMED_SAFE": 8.9,
+    "REVIEW_CONFIRMED_MALICIOUS": 9.7,
+    "TERMINAL": 0.0
+  },
+  "q_table": {
+    "LOW_RISK_APPROVED": [
+      10.0,
+      7.5,
+      -20.0
+    ],
+    "LOW_RISK_UNVERIFIED": [
+      1.9,
+      4.15,
+      -19.52
+    ],
+    "MEDIUM_RISK_UNVERIFIED": [
+      -63.25,
+      4.13,
+      -4.41
+    ],
+    "HIGH_RISK_UNVERIFIED": [
+      -97.82,
+      3.91,
+      8.69
+    ],
+    "QUARANTINED_AWAITING_REVIEW": [
+      -23.6,
+      6.41,
+      -9.23
+    ],
+    "REVIEW_CONFIRMED_SAFE": [
+      9.05,
+      -0.84,
+      -19.98
+    ],
+    "REVIEW_CONFIRMED_MALICIOUS": [
+      -99.97,
+      3.68,
+      9.26
+    ],
+    "TERMINAL": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  }
+}

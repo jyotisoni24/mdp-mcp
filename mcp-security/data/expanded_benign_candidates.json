@@ -1,0 +1,1772 @@
+[
+  {
+    "candidate_id": "mcp_puppeteer_puppeteer_navigate",
+    "tool_name": "puppeteer_navigate",
+    "server_name": "puppeteer",
+    "category": "Web Automation & Scraping",
+    "tool_description": "Navigate to a URL",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "URL to navigate to"
+        },
+        "launchOptions": {
+          "type": "object",
+          "description": "PuppeteerJS LaunchOptions. Default null. If changed and not null, browser restarts. Example: { headless: true, args: ['--no-sandbox'] }"
+        },
+        "allowDangerous": {
+          "type": "boolean",
+          "description": "Allow dangerous LaunchOptions that reduce security. When false, dangerous args like --no-sandbox will throw errors. Default false."
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/puppeteer",
+      "source_file": "src/puppeteer/index.ts",
+      "server_version": "0.1.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "puppeteer",
+      "category": "Web Automation & Scraping",
+      "server_description": "Official MCP server for Puppeteer browser automation, web page navigation, interaction, and screenshot capture",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "page.goto(args.url, { waitUntil: 'networkidle0' }) (line 279)",
+      "source_file": "src/puppeteer/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Technical description of browser URL navigation.",
+      "instruction_override_risk": "low",
+      "hidden_prerequisites": "Requires local Chromium installation; optional allowDangerous flag allows bypassing security args",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "high: Can perform arbitrary HTTP GET navigation to any internet or local intranet URL",
+      "purpose_implementation_match": "MATCH: Description accurately reflects browser page navigation.",
+      "security_flags": [
+        "network_request",
+        "arbitrary_url_navigation",
+        "security_override_option_allowDangerous"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "5f10be86aae61648c430c62d4149098aa00c548980bdabd974a26a6d0c3630a6"
+  },
+  {
+    "candidate_id": "mcp_puppeteer_puppeteer_screenshot",
+    "tool_name": "puppeteer_screenshot",
+    "server_name": "puppeteer",
+    "category": "Web Automation & Scraping",
+    "tool_description": "Take a screenshot of the current page or a specific element",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name for the screenshot"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector for element to screenshot"
+        },
+        "width": {
+          "type": "number",
+          "description": "Width in pixels (default: 800)"
+        },
+        "height": {
+          "type": "number",
+          "description": "Height in pixels (default: 600)"
+        },
+        "encoded": {
+          "type": "boolean",
+          "description": "If true, capture the screenshot as a base64-encoded data URI (as text) instead of binary image content. Default false."
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/puppeteer",
+      "source_file": "src/puppeteer/index.ts",
+      "server_version": "0.1.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "puppeteer",
+      "category": "Web Automation & Scraping",
+      "server_description": "Official MCP server for Puppeteer browser automation, web page navigation, interaction, and screenshot capture",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "page.screenshot(...) / element.screenshot(...) (lines 292-315)",
+      "source_file": "src/puppeteer/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Image rendering and screen capture utility.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires active browser page",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "medium: Visual screen capture can capture sensitive visible web content",
+      "purpose_implementation_match": "MATCH: Description matches page screenshot capture implementation.",
+      "security_flags": [
+        "screen_capture",
+        "data_inspection"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "bebf00f6028e730775776fe8b3c77803fa579fc7c8ed339b47bacc981122f726"
+  },
+  {
+    "candidate_id": "mcp_puppeteer_puppeteer_click",
+    "tool_name": "puppeteer_click",
+    "server_name": "puppeteer",
+    "category": "Web Automation & Scraping",
+    "tool_description": "Click an element on the page",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "CSS selector for element to click"
+        }
+      },
+      "required": [
+        "selector"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/puppeteer",
+      "source_file": "src/puppeteer/index.ts",
+      "server_version": "0.1.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "puppeteer",
+      "category": "Web Automation & Scraping",
+      "server_description": "Official MCP server for Puppeteer browser automation, web page navigation, interaction, and screenshot capture",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "page.click(args.selector) (line 320)",
+      "source_file": "src/puppeteer/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. DOM interaction directive.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires active page with matching CSS selector",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "low: Clicks UI elements on currently loaded page",
+      "purpose_implementation_match": "MATCH: Implementation invokes page.click on target selector.",
+      "security_flags": [
+        "ui_interaction"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "e3e5c8b98822368eed7d8f84a268734907eca86d0a11a55d3e34cc0374eb1aae"
+  },
+  {
+    "candidate_id": "mcp_puppeteer_puppeteer_fill",
+    "tool_name": "puppeteer_fill",
+    "server_name": "puppeteer",
+    "category": "Web Automation & Scraping",
+    "tool_description": "Fill out an input field",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "CSS selector for input field"
+        },
+        "value": {
+          "type": "string",
+          "description": "Value to fill"
+        }
+      },
+      "required": [
+        "selector",
+        "value"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/puppeteer",
+      "source_file": "src/puppeteer/index.ts",
+      "server_version": "0.1.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "puppeteer",
+      "category": "Web Automation & Scraping",
+      "server_description": "Official MCP server for Puppeteer browser automation, web page navigation, interaction, and screenshot capture",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "page.waitForSelector(args.selector); page.type(args.selector, args.value) (lines 336-337)",
+      "source_file": "src/puppeteer/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Form input manipulation.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires active page with input element",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "medium: Can input sensitive credentials or arbitrary data into web forms",
+      "purpose_implementation_match": "MATCH: Implementation fills DOM input with specified string.",
+      "security_flags": [
+        "form_input_injection"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "0dd122906268c92c079bb8ada0b25ac9cce5a1e2fb25087b5aa24b9872389f0d"
+  },
+  {
+    "candidate_id": "mcp_puppeteer_puppeteer_select",
+    "tool_name": "puppeteer_select",
+    "server_name": "puppeteer",
+    "category": "Web Automation & Scraping",
+    "tool_description": "Select an element on the page with Select tag",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "CSS selector for element to select"
+        },
+        "value": {
+          "type": "string",
+          "description": "Value to select"
+        }
+      },
+      "required": [
+        "selector",
+        "value"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/puppeteer",
+      "source_file": "src/puppeteer/index.ts",
+      "server_version": "0.1.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "puppeteer",
+      "category": "Web Automation & Scraping",
+      "server_description": "Official MCP server for Puppeteer browser automation, web page navigation, interaction, and screenshot capture",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "page.waitForSelector(args.selector); page.select(args.selector, args.value) (lines 353-354)",
+      "source_file": "src/puppeteer/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. HTML select tag helper.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires active page with HTML select element",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "none",
+      "purpose_implementation_match": "MATCH: Implementation invokes page.select.",
+      "security_flags": [
+        "ui_interaction"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "4201ffbb24486e877e08ef73fba86f61dbb5ecdd978aa2f7781ad169c4ce2483"
+  },
+  {
+    "candidate_id": "mcp_puppeteer_puppeteer_hover",
+    "tool_name": "puppeteer_hover",
+    "server_name": "puppeteer",
+    "category": "Web Automation & Scraping",
+    "tool_description": "Hover an element on the page",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "description": "CSS selector for element to hover"
+        }
+      },
+      "required": [
+        "selector"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/puppeteer",
+      "source_file": "src/puppeteer/index.ts",
+      "server_version": "0.1.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "puppeteer",
+      "category": "Web Automation & Scraping",
+      "server_description": "Official MCP server for Puppeteer browser automation, web page navigation, interaction, and screenshot capture",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "page.waitForSelector(args.selector); page.hover(args.selector) (lines 370-371)",
+      "source_file": "src/puppeteer/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Mouse hover simulator.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires active page with matching element",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "none",
+      "purpose_implementation_match": "MATCH: Implementation invokes page.hover.",
+      "security_flags": [
+        "ui_interaction"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "e101645d776339ed114cbf904bb05ccb9645d3388955505296ddcd479ec6f18a"
+  },
+  {
+    "candidate_id": "mcp_puppeteer_puppeteer_evaluate",
+    "tool_name": "puppeteer_evaluate",
+    "server_name": "puppeteer",
+    "category": "Web Automation & Scraping",
+    "tool_description": "Execute JavaScript in the browser console",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "script": {
+          "type": "string",
+          "description": "JavaScript code to execute"
+        }
+      },
+      "required": [
+        "script"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/puppeteer",
+      "source_file": "src/puppeteer/index.ts",
+      "server_version": "0.1.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "puppeteer",
+      "category": "Web Automation & Scraping",
+      "server_description": "Official MCP server for Puppeteer browser automation, web page navigation, interaction, and screenshot capture",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "page.evaluate(args.script) with console capturing (lines 387-414)",
+      "source_file": "src/puppeteer/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None in description text.",
+      "instruction_override_risk": "high",
+      "hidden_prerequisites": "Requires browser context",
+      "credential_access": "high: Can read document.cookie, localStorage, sessionStorage, or DOM secrets",
+      "unauthorized_data_transfer_risk": "high: Can make fetch/XHR requests from browser context to arbitrary domains",
+      "purpose_implementation_match": "MATCH: Implementation executes arbitrary JavaScript string in browser context.",
+      "security_flags": [
+        "arbitrary_code_execution",
+        "dom_tampering",
+        "potential_cookie_theft"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "4cb7d0b798fd9bfd6b9deffde61b7d41e1826a499de052c3ed0e3210c73dc315"
+  },
+  {
+    "candidate_id": "mcp_slack_slack_list_channels",
+    "tool_name": "slack_list_channels",
+    "server_name": "slack",
+    "category": "Messaging & Collaboration",
+    "tool_description": "List public or pre-defined channels in the workspace with pagination",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "number",
+          "description": "Maximum number of channels to return (default 100, max 200)",
+          "default": 100
+        },
+        "cursor": {
+          "type": "string",
+          "description": "Pagination cursor for next page of results"
+        }
+      }
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/slack",
+      "source_file": "src/slack/index.ts",
+      "server_version": "1.0.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "slack",
+      "category": "Messaging & Collaboration",
+      "server_description": "Official MCP server for Slack workspace integration, channel listing, message dispatch, and history reading",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "slackClient.getChannels(args.limit, args.cursor) via conversations.list API",
+      "source_file": "src/slack/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Standard channel listing API.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires SLACK_BOT_TOKEN environment variable",
+      "credential_access": "medium: Uses SLACK_BOT_TOKEN Bearer authorization",
+      "unauthorized_data_transfer_risk": "low: Reads public workspace channel metadata",
+      "purpose_implementation_match": "MATCH: Calls Slack conversations.list API.",
+      "security_flags": [
+        "api_read",
+        "workspace_enumeration"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "ecbb580184633494411abb394052744777def3d8fa7e52582f54bad222011a96"
+  },
+  {
+    "candidate_id": "mcp_slack_slack_post_message",
+    "tool_name": "slack_post_message",
+    "server_name": "slack",
+    "category": "Messaging & Collaboration",
+    "tool_description": "Post a new message to a Slack channel",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string",
+          "description": "The ID of the channel to post to"
+        },
+        "text": {
+          "type": "string",
+          "description": "The message text to post"
+        }
+      },
+      "required": [
+        "channel_id",
+        "text"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/slack",
+      "source_file": "src/slack/index.ts",
+      "server_version": "1.0.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "slack",
+      "category": "Messaging & Collaboration",
+      "server_description": "Official MCP server for Slack workspace integration, channel listing, message dispatch, and history reading",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "slackClient.postMessage(args.channel_id, args.text) via chat.postMessage API",
+      "source_file": "src/slack/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Stated message dispatch utility.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires SLACK_BOT_TOKEN and channel membership",
+      "credential_access": "medium: Uses SLACK_BOT_TOKEN",
+      "unauthorized_data_transfer_risk": "high: Outbound data dispatch to external Slack workspace (potential exfiltration channel)",
+      "purpose_implementation_match": "MATCH: Posts message text to designated channel.",
+      "security_flags": [
+        "external_data_dispatch",
+        "social_engineering_vector"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "16add634231578b70c41623f0f4c9829601ae5ed4ddfcb1b3457e941268c215b"
+  },
+  {
+    "candidate_id": "mcp_slack_slack_reply_to_thread",
+    "tool_name": "slack_reply_to_thread",
+    "server_name": "slack",
+    "category": "Messaging & Collaboration",
+    "tool_description": "Reply to a specific message thread in Slack",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string",
+          "description": "The ID of the channel containing the thread"
+        },
+        "thread_ts": {
+          "type": "string",
+          "description": "The timestamp of the parent message in the format '1234567890.123456'. Timestamps in the format without the period can be converted by adding the period such that 6 numbers come after it."
+        },
+        "text": {
+          "type": "string",
+          "description": "The reply text"
+        }
+      },
+      "required": [
+        "channel_id",
+        "thread_ts",
+        "text"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/slack",
+      "source_file": "src/slack/index.ts",
+      "server_version": "1.0.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "slack",
+      "category": "Messaging & Collaboration",
+      "server_description": "Official MCP server for Slack workspace integration, channel listing, message dispatch, and history reading",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "slackClient.postReply(args.channel_id, args.thread_ts, args.text) via chat.postMessage",
+      "source_file": "src/slack/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "Description contains numeric formatting instruction ('Timestamps in the format without the period can be converted...'), but it is a format conversion note, not an instruction override.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires SLACK_BOT_TOKEN and parent message thread",
+      "credential_access": "medium: Uses SLACK_BOT_TOKEN",
+      "unauthorized_data_transfer_risk": "high: Outbound message transmission to external thread",
+      "purpose_implementation_match": "MATCH: Sends threaded message to Slack API.",
+      "security_flags": [
+        "external_data_dispatch"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "e988157074135f56db06b5c6b97f0683c2ec7bf111f729af2e875c7edc39202f"
+  },
+  {
+    "candidate_id": "mcp_slack_slack_add_reaction",
+    "tool_name": "slack_add_reaction",
+    "server_name": "slack",
+    "category": "Messaging & Collaboration",
+    "tool_description": "Add a reaction emoji to a message",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string",
+          "description": "The ID of the channel containing the message"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "The timestamp of the message to react to"
+        },
+        "reaction": {
+          "type": "string",
+          "description": "The name of the emoji reaction (without ::)"
+        }
+      },
+      "required": [
+        "channel_id",
+        "timestamp",
+        "reaction"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/slack",
+      "source_file": "src/slack/index.ts",
+      "server_version": "1.0.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "slack",
+      "category": "Messaging & Collaboration",
+      "server_description": "Official MCP server for Slack workspace integration, channel listing, message dispatch, and history reading",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "slackClient.addReaction(args.channel_id, args.timestamp, args.reaction) via reactions.add API",
+      "source_file": "src/slack/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Emoji reaction utility.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires SLACK_BOT_TOKEN",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "low: Adds emoji reaction",
+      "purpose_implementation_match": "MATCH: Calls Slack reactions.add.",
+      "security_flags": [
+        "api_write"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "e0995bc0db4ce8f8b30b80d4c51b9cd4a0b4ba259e3443648c8d0d2e300a5324"
+  },
+  {
+    "candidate_id": "mcp_slack_slack_get_channel_history",
+    "tool_name": "slack_get_channel_history",
+    "server_name": "slack",
+    "category": "Messaging & Collaboration",
+    "tool_description": "Get recent messages from a channel",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string",
+          "description": "The ID of the channel"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Number of messages to retrieve (default 10)",
+          "default": 10
+        }
+      },
+      "required": [
+        "channel_id"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/slack",
+      "source_file": "src/slack/index.ts",
+      "server_version": "1.0.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "slack",
+      "category": "Messaging & Collaboration",
+      "server_description": "Official MCP server for Slack workspace integration, channel listing, message dispatch, and history reading",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "slackClient.getChannelHistory(args.channel_id, args.limit) via conversations.history API",
+      "source_file": "src/slack/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Message retrieval helper.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires SLACK_BOT_TOKEN and channel access",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "medium: Ingests external Slack messages which might contain untrusted user content / prompt injection",
+      "purpose_implementation_match": "MATCH: Reads channel conversation history.",
+      "security_flags": [
+        "api_read",
+        "untrusted_content_ingestion"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "fd1307faeb721eb071230b66423f3c26b9de72961407bc76c51f96b664ef06b4"
+  },
+  {
+    "candidate_id": "mcp_slack_slack_get_thread_replies",
+    "tool_name": "slack_get_thread_replies",
+    "server_name": "slack",
+    "category": "Messaging & Collaboration",
+    "tool_description": "Get all replies in a message thread",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string",
+          "description": "The ID of the channel containing the thread"
+        },
+        "thread_ts": {
+          "type": "string",
+          "description": "The timestamp of the parent message in the format '1234567890.123456'. Timestamps in the format without the period can be converted by adding the period such that 6 numbers come after it."
+        }
+      },
+      "required": [
+        "channel_id",
+        "thread_ts"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/slack",
+      "source_file": "src/slack/index.ts",
+      "server_version": "1.0.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "slack",
+      "category": "Messaging & Collaboration",
+      "server_description": "Official MCP server for Slack workspace integration, channel listing, message dispatch, and history reading",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "slackClient.getThreadReplies(args.channel_id, args.thread_ts) via conversations.replies API",
+      "source_file": "src/slack/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "Contains timestamp format helper description.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires SLACK_BOT_TOKEN",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "medium: Ingests thread messages which may contain external untrusted input",
+      "purpose_implementation_match": "MATCH: Retrieves thread messages.",
+      "security_flags": [
+        "api_read",
+        "untrusted_content_ingestion"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "ce185f592568453f4ee9552e4fe53bfce477de76efb3d0f2008a58a2e4ee4a48"
+  },
+  {
+    "candidate_id": "mcp_slack_slack_get_users",
+    "tool_name": "slack_get_users",
+    "server_name": "slack",
+    "category": "Messaging & Collaboration",
+    "tool_description": "Get a list of all users in the workspace with their basic profile information",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "type": "string",
+          "description": "Pagination cursor for next page of results"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Maximum number of users to return (default 100, max 200)",
+          "default": 100
+        }
+      }
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/slack",
+      "source_file": "src/slack/index.ts",
+      "server_version": "1.0.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "slack",
+      "category": "Messaging & Collaboration",
+      "server_description": "Official MCP server for Slack workspace integration, channel listing, message dispatch, and history reading",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "slackClient.getUsers(args.limit, args.cursor) via users.list API",
+      "source_file": "src/slack/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. User directory enumeration.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires SLACK_BOT_TOKEN",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "medium: User enumeration exposes workspace emails and identities",
+      "purpose_implementation_match": "MATCH: Calls Slack users.list.",
+      "security_flags": [
+        "api_read",
+        "user_enumeration",
+        "pii_exposure"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "6d993b23d2b6491befe06813a300fa0b2ccae285d0d059022b456449fc432dbf"
+  },
+  {
+    "candidate_id": "mcp_slack_slack_get_user_profile",
+    "tool_name": "slack_get_user_profile",
+    "server_name": "slack",
+    "category": "Messaging & Collaboration",
+    "tool_description": "Get detailed profile information for a specific user",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string",
+          "description": "The ID of the user"
+        }
+      },
+      "required": [
+        "user_id"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/slack",
+      "source_file": "src/slack/index.ts",
+      "server_version": "1.0.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "slack",
+      "category": "Messaging & Collaboration",
+      "server_description": "Official MCP server for Slack workspace integration, channel listing, message dispatch, and history reading",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "slackClient.getUserProfile(args.user_id) via users.profile.get API",
+      "source_file": "src/slack/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. User profile lookup.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires SLACK_BOT_TOKEN",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "medium: Exposes detailed profile fields (phone, email, title, status)",
+      "purpose_implementation_match": "MATCH: Calls users.profile.get.",
+      "security_flags": [
+        "api_read",
+        "pii_exposure"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "3602e31b3f8c81b177846bffd458a3f645b71e79ceb8eec6d52b89a297206d4a"
+  },
+  {
+    "candidate_id": "mcp_postgres_query",
+    "tool_name": "query",
+    "server_name": "postgres",
+    "category": "Relational Database",
+    "tool_description": "Run a read-only SQL query",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "sql": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "sql"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/postgres",
+      "source_file": "src/postgres/index.ts",
+      "server_version": "0.1.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "postgres",
+      "category": "Relational Database",
+      "server_description": "Official MCP server providing read-only PostgreSQL database queries wrapped in read-only transaction blocks",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "await client.query('BEGIN TRANSACTION READ ONLY'); await client.query(sql);",
+      "source_file": "src/postgres/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Brief technical description.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires PostgreSQL database URL provided as command-line argument",
+      "credential_access": "medium: Connects to PostgreSQL database with connection string credentials",
+      "unauthorized_data_transfer_risk": "medium: Exposes database schema and table rows",
+      "purpose_implementation_match": "MATCH: Specifically enforces read-only mode via 'BEGIN TRANSACTION READ ONLY' before running query.",
+      "security_flags": [
+        "database_query",
+        "read_only_enforced"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "e5a61834f66f81c49b34f75be0382044137cfe31dbf540ed5f35875c66b643e2"
+  },
+  {
+    "candidate_id": "mcp_gdrive_search",
+    "tool_name": "search",
+    "server_name": "gdrive",
+    "category": "Cloud Storage & Document Retrieval",
+    "tool_description": "Search for files in Google Drive",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Search query"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/gdrive",
+      "source_file": "src/gdrive/index.ts",
+      "server_version": "0.1.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "gdrive",
+      "category": "Cloud Storage & Document Retrieval",
+      "server_description": "Official MCP server for Google Drive file search, metadata retrieval, and document exporting",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "drive.files.list({ q: `fullText contains '${escapedQuery}'`, pageSize: 10 })",
+      "source_file": "src/gdrive/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Clear search utility.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires Google Drive OAuth2 credentials / credentials.json",
+      "credential_access": "medium: Uses Google Drive API OAuth token",
+      "unauthorized_data_transfer_risk": "low: Searches metadata in user's Google Drive",
+      "purpose_implementation_match": "MATCH: Implementation sanitizes query and calls drive.files.list.",
+      "security_flags": [
+        "api_read",
+        "cloud_file_search"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "1eb89c722b8cb0faffc9fc6dd6f4174fe10b3e7179a7bbd167cf7d16fc934a0b"
+  },
+  {
+    "candidate_id": "mcp_aws-kb-retrieval_retrieve_from_aws_kb",
+    "tool_name": "retrieve_from_aws_kb",
+    "server_name": "aws-kb-retrieval",
+    "category": "Knowledge Base Retrieval",
+    "tool_description": "Performs retrieval from the AWS Knowledge Base using the provided query and Knowledge Base ID.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The query to perform retrieval on"
+        },
+        "knowledgeBaseId": {
+          "type": "string",
+          "description": "The ID of the AWS Knowledge Base"
+        },
+        "n": {
+          "type": "number",
+          "default": 3,
+          "description": "Number of results to retrieve"
+        }
+      },
+      "required": [
+        "query",
+        "knowledgeBaseId"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/aws-kb-retrieval-server",
+      "source_file": "src/aws-kb-retrieval-server/index.ts",
+      "server_version": "0.2.0",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "aws-kb-retrieval",
+      "category": "Knowledge Base Retrieval",
+      "server_description": "Official MCP server for AWS Knowledge Base context retrieval via Bedrock Agent Runtime",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "bedrockClient.send(new RetrieveCommand(input))",
+      "source_file": "src/aws-kb-retrieval-server/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Standard vector knowledge retrieval description.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY env vars",
+      "credential_access": "high: Requires AWS secret credentials in environment",
+      "unauthorized_data_transfer_risk": "medium: Ingests external enterprise knowledge chunks from Bedrock into model context",
+      "purpose_implementation_match": "MATCH: Implementation calls BedrockAgentRuntime RetrieveCommand.",
+      "security_flags": [
+        "api_read",
+        "rag_retrieval",
+        "aws_credentials_required"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "bc2b67ac96cba04d3e3f615e6c7120ee56bbc2d5059c430584b9f3742489be3a"
+  },
+  {
+    "candidate_id": "mcp_gitlab_create_or_update_file",
+    "tool_name": "create_or_update_file",
+    "server_name": "gitlab",
+    "category": "Version Control & Project Management",
+    "tool_description": "Create or update a single file in a GitLab project",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "description": "The ID or URL-encoded path of the project"
+        },
+        "file_path": {
+          "type": "string",
+          "description": "Path where to create/update the file"
+        },
+        "content": {
+          "type": "string",
+          "description": "Content of the file"
+        },
+        "commit_message": {
+          "type": "string",
+          "description": "Commit message"
+        },
+        "branch": {
+          "type": "string",
+          "description": "Branch to create/update the file in"
+        },
+        "previous_path": {
+          "type": "string",
+          "description": "Path of the file to move/rename"
+        }
+      },
+      "required": [
+        "project_id",
+        "file_path",
+        "content",
+        "commit_message",
+        "branch"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/gitlab",
+      "source_file": "src/gitlab/index.ts",
+      "server_version": "0.5.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "gitlab",
+      "category": "Version Control & Project Management",
+      "server_description": "Official MCP server for GitLab REST API operations, repository files, issues, merge requests, and branches",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "fetch(`${GITLAB_API_URL}/projects/${encodedProjectId}/repository/files/...`) via POST/PUT",
+      "source_file": "src/gitlab/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Repository commit utility.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires GITLAB_PERSONAL_ACCESS_TOKEN and write access to project",
+      "credential_access": "medium: Uses GITLAB_PERSONAL_ACCESS_TOKEN",
+      "unauthorized_data_transfer_risk": "high: Writes arbitrary file content into remote GitLab repository branch",
+      "purpose_implementation_match": "MATCH: Creates or updates file in target branch.",
+      "security_flags": [
+        "api_write",
+        "code_modification",
+        "remote_repo_push"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "a6ada90a445b15d0c19c215adb88df9809b43cdb0579e38cb8e381411913df7c"
+  },
+  {
+    "candidate_id": "mcp_gitlab_search_repositories",
+    "tool_name": "search_repositories",
+    "server_name": "gitlab",
+    "category": "Version Control & Project Management",
+    "tool_description": "Search for GitLab projects",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "search": {
+          "type": "string",
+          "description": "Search query"
+        },
+        "page": {
+          "type": "number",
+          "description": "Page number for pagination (default: 1)"
+        },
+        "per_page": {
+          "type": "number",
+          "description": "Number of results per page (default: 20)"
+        }
+      },
+      "required": [
+        "search"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/gitlab",
+      "source_file": "src/gitlab/index.ts",
+      "server_version": "0.5.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "gitlab",
+      "category": "Version Control & Project Management",
+      "server_description": "Official MCP server for GitLab REST API operations, repository files, issues, merge requests, and branches",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "fetch(`${GITLAB_API_URL}/projects?search=${search}...`)",
+      "source_file": "src/gitlab/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Search helper.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires GITLAB_PERSONAL_ACCESS_TOKEN",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "low: Enumerates public/internal GitLab projects",
+      "purpose_implementation_match": "MATCH: Queries GitLab projects API.",
+      "security_flags": [
+        "api_read",
+        "project_enumeration"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "62e48b88232ca2cd6462fecc8b64de421480ba57d7b1bb4748a11871040caa64"
+  },
+  {
+    "candidate_id": "mcp_gitlab_create_repository",
+    "tool_name": "create_repository",
+    "server_name": "gitlab",
+    "category": "Version Control & Project Management",
+    "tool_description": "Create a new GitLab project",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Repository name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Repository description"
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "private",
+            "internal",
+            "public"
+          ],
+          "description": "Repository visibility level"
+        },
+        "initialize_with_readme": {
+          "type": "boolean",
+          "description": "Initialize with README.md"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/gitlab",
+      "source_file": "src/gitlab/index.ts",
+      "server_version": "0.5.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "gitlab",
+      "category": "Version Control & Project Management",
+      "server_description": "Official MCP server for GitLab REST API operations, repository files, issues, merge requests, and branches",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "fetch(`${GITLAB_API_URL}/projects`, { method: 'POST', body: ... })",
+      "source_file": "src/gitlab/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Project creation helper.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires GITLAB_PERSONAL_ACCESS_TOKEN with repo creation privileges",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "low: Creates new empty repository",
+      "purpose_implementation_match": "MATCH: Creates new project via GitLab API.",
+      "security_flags": [
+        "api_write",
+        "resource_creation"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "acb6c9d8d8ba8cc110ab66ef771fa8bde59fb804890ab69bea88dd3938eab22f"
+  },
+  {
+    "candidate_id": "mcp_gitlab_get_file_contents",
+    "tool_name": "get_file_contents",
+    "server_name": "gitlab",
+    "category": "Version Control & Project Management",
+    "tool_description": "Get the contents of a file or directory from a GitLab project",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "description": "The ID or URL-encoded path of the project"
+        },
+        "file_path": {
+          "type": "string",
+          "description": "Path to the file or directory"
+        },
+        "ref": {
+          "type": "string",
+          "description": "Branch/tag/commit to get contents from"
+        }
+      },
+      "required": [
+        "project_id",
+        "file_path"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/gitlab",
+      "source_file": "src/gitlab/index.ts",
+      "server_version": "0.5.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "gitlab",
+      "category": "Version Control & Project Management",
+      "server_description": "Official MCP server for GitLab REST API operations, repository files, issues, merge requests, and branches",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "fetch(`${GITLAB_API_URL}/projects/${encodedProjectId}/repository/files/${encodedPath}/raw?ref=${ref}`)",
+      "source_file": "src/gitlab/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. File retrieval helper.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires GITLAB_PERSONAL_ACCESS_TOKEN",
+      "credential_access": "medium: Can read proprietary source code from private repositories",
+      "unauthorized_data_transfer_risk": "medium: Ingests remote source code into model context",
+      "purpose_implementation_match": "MATCH: Fetches raw file or directory content.",
+      "security_flags": [
+        "api_read",
+        "code_retrieval"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "372bf318fc9a3e73f3cff8e0e792cd2a6443caae4fb374f6f75632a66bba4039"
+  },
+  {
+    "candidate_id": "mcp_gitlab_push_files",
+    "tool_name": "push_files",
+    "server_name": "gitlab",
+    "category": "Version Control & Project Management",
+    "tool_description": "Push multiple files to a GitLab project in a single commit",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "description": "The ID or URL-encoded path of the project"
+        },
+        "branch": {
+          "type": "string",
+          "description": "Branch to push to"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "file_path": {
+                "type": "string",
+                "description": "Path where to create the file"
+              },
+              "content": {
+                "type": "string",
+                "description": "Content of the file"
+              }
+            }
+          },
+          "description": "Array of files to push"
+        },
+        "commit_message": {
+          "type": "string",
+          "description": "Commit message"
+        }
+      },
+      "required": [
+        "project_id",
+        "branch",
+        "files",
+        "commit_message"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/gitlab",
+      "source_file": "src/gitlab/index.ts",
+      "server_version": "0.5.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "gitlab",
+      "category": "Version Control & Project Management",
+      "server_description": "Official MCP server for GitLab REST API operations, repository files, issues, merge requests, and branches",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "fetch(`${GITLAB_API_URL}/projects/${encodedProjectId}/repository/commits`, { method: 'POST', body: ... })",
+      "source_file": "src/gitlab/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Multi-file commit helper.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires GITLAB_PERSONAL_ACCESS_TOKEN",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "high: Pushes batch code modifications directly to remote repository branches",
+      "purpose_implementation_match": "MATCH: Batches file actions into single GitLab commit API call.",
+      "security_flags": [
+        "api_write",
+        "batch_code_push"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "edf845c36200242fb9a4f3f4adb5d5476adf1ef36ad27e19a262afd0a423cc7b"
+  },
+  {
+    "candidate_id": "mcp_gitlab_create_issue",
+    "tool_name": "create_issue",
+    "server_name": "gitlab",
+    "category": "Version Control & Project Management",
+    "tool_description": "Create a new issue in a GitLab project",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "description": "The ID or URL-encoded path of the project"
+        },
+        "title": {
+          "type": "string",
+          "description": "Issue title"
+        },
+        "description": {
+          "type": "string",
+          "description": "Issue description"
+        },
+        "assignee_ids": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "Array of user IDs to assign"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of label names"
+        },
+        "milestone_id": {
+          "type": "number",
+          "description": "Milestone ID to assign"
+        }
+      },
+      "required": [
+        "project_id",
+        "title"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/gitlab",
+      "source_file": "src/gitlab/index.ts",
+      "server_version": "0.5.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "gitlab",
+      "category": "Version Control & Project Management",
+      "server_description": "Official MCP server for GitLab REST API operations, repository files, issues, merge requests, and branches",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "fetch(`${GITLAB_API_URL}/projects/${encodedProjectId}/issues`, { method: 'POST', body: ... })",
+      "source_file": "src/gitlab/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Issue creation helper.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires GITLAB_PERSONAL_ACCESS_TOKEN",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "low: Creates new issue ticket",
+      "purpose_implementation_match": "MATCH: Dispatches issue creation to GitLab issues API.",
+      "security_flags": [
+        "api_write"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "a45dd105553c1d4b4680f82a0952cf57322a845171cd81e91c68b8a0188e5a2f"
+  },
+  {
+    "candidate_id": "mcp_gitlab_create_merge_request",
+    "tool_name": "create_merge_request",
+    "server_name": "gitlab",
+    "category": "Version Control & Project Management",
+    "tool_description": "Create a new merge request in a GitLab project",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "description": "The ID or URL-encoded path of the project"
+        },
+        "title": {
+          "type": "string",
+          "description": "Merge request title"
+        },
+        "description": {
+          "type": "string",
+          "description": "Merge request description"
+        },
+        "source_branch": {
+          "type": "string",
+          "description": "Branch containing changes"
+        },
+        "target_branch": {
+          "type": "string",
+          "description": "Branch to merge into"
+        },
+        "draft": {
+          "type": "boolean",
+          "description": "Create as draft merge request"
+        },
+        "allow_collaboration": {
+          "type": "boolean",
+          "description": "Allow commits from upstream members"
+        }
+      },
+      "required": [
+        "project_id",
+        "title",
+        "source_branch",
+        "target_branch"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/gitlab",
+      "source_file": "src/gitlab/index.ts",
+      "server_version": "0.5.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "gitlab",
+      "category": "Version Control & Project Management",
+      "server_description": "Official MCP server for GitLab REST API operations, repository files, issues, merge requests, and branches",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "fetch(`${GITLAB_API_URL}/projects/${encodedProjectId}/merge_requests`, { method: 'POST', body: ... })",
+      "source_file": "src/gitlab/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Pull request / merge request opener.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires existing branches in project",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "low: Proposes branch merge in GitLab",
+      "purpose_implementation_match": "MATCH: Dispatches MR creation to GitLab API.",
+      "security_flags": [
+        "api_write"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "f01da47ce4c6768d2546b9a5807e95ee3d1a4c1c2fe6420fe585ec4496651650"
+  },
+  {
+    "candidate_id": "mcp_gitlab_fork_repository",
+    "tool_name": "fork_repository",
+    "server_name": "gitlab",
+    "category": "Version Control & Project Management",
+    "tool_description": "Fork a GitLab project to your account or specified namespace",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "description": "The ID or URL-encoded path of the project"
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Namespace to fork to (full path)"
+        }
+      },
+      "required": [
+        "project_id"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/gitlab",
+      "source_file": "src/gitlab/index.ts",
+      "server_version": "0.5.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "gitlab",
+      "category": "Version Control & Project Management",
+      "server_description": "Official MCP server for GitLab REST API operations, repository files, issues, merge requests, and branches",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "fetch(`${GITLAB_API_URL}/projects/${encodedProjectId}/fork`, { method: 'POST', body: ... })",
+      "source_file": "src/gitlab/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Repository fork helper.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires valid GitLab namespace",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "medium: Clones entire project into target namespace",
+      "purpose_implementation_match": "MATCH: Calls GitLab project fork endpoint.",
+      "security_flags": [
+        "api_write",
+        "repo_duplication"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "742d74136733fcb9425cada62ec7cb5dd3974f7369431f2f2c36730f86ffb650"
+  },
+  {
+    "candidate_id": "mcp_gitlab_create_branch",
+    "tool_name": "create_branch",
+    "server_name": "gitlab",
+    "category": "Version Control & Project Management",
+    "tool_description": "Create a new branch in a GitLab project",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "description": "The ID or URL-encoded path of the project"
+        },
+        "branch": {
+          "type": "string",
+          "description": "Name for the new branch"
+        },
+        "ref": {
+          "type": "string",
+          "description": "Source branch/commit for new branch"
+        }
+      },
+      "required": [
+        "project_id",
+        "branch"
+      ]
+    },
+    "provenance": {
+      "source_type": "official_reference_server",
+      "repo_url": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+      "server_path": "src/gitlab",
+      "source_file": "src/gitlab/index.ts",
+      "server_version": "0.5.1",
+      "license": "MIT"
+    },
+    "server_level_metadata": {
+      "server_name": "gitlab",
+      "category": "Version Control & Project Management",
+      "server_description": "Official MCP server for GitLab REST API operations, repository files, issues, merge requests, and branches",
+      "language": "typescript"
+    },
+    "implementation_reference": {
+      "handler_reference": "fetch(`${GITLAB_API_URL}/projects/${encodedProjectId}/repository/branches`, { method: 'POST', body: ... })",
+      "source_file": "src/gitlab/index.ts",
+      "source_repository": "https://github.com/modelcontextprotocol/servers-archived",
+      "commit_hash": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f"
+    },
+    "static_checks": {
+      "behavioral_directive_present": false,
+      "behavioral_directive_details": "None. Git branch creation utility.",
+      "instruction_override_risk": "none",
+      "hidden_prerequisites": "Requires project write permission",
+      "credential_access": "none",
+      "unauthorized_data_transfer_risk": "low: Creates new Git branch pointer",
+      "purpose_implementation_match": "MATCH: Calls GitLab repository branches endpoint.",
+      "security_flags": [
+        "api_write"
+      ]
+    },
+    "verification_status": "pending_review",
+    "reviewer_notes": "",
+    "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+    "text_hash": "71ac5fe306be65d09ff5ad94ec473751c5ef65bde35ce18067efe74dd1e695df"
+  }
+]

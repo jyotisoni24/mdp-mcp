@@ -1,0 +1,430 @@
+{
+  "metadata": {
+    "title": "Final Independent Verification of MCP Security Gateway Research Evaluation",
+    "audit_timestamp": "2026-11-01T20:30:37.074592+00:00",
+    "auditor": "Antigravity Independent Audit Engine",
+    "verdict": "VERIFIED WITH LIMITATIONS",
+    "production_readiness": false,
+    "production_readiness_statement": "Research prototype only. Highly effective at prompt-injection text detection, but not production-ready due to small benign sample size (N=53), synthetic attack distribution bias, application-level boundary limitations, and human review operational overhead.",
+    "environment": {
+      "os": "Microsoft Windows [Version 10.0.26100.3037]",
+      "python_version": "3.14.8",
+      "pytest_version": "9.2.0",
+      "scipy_version": "1.18.1",
+      "scikit_learn_version": "1.6.1",
+      "anyio_version": "4.15.1",
+      "mcp_sdk_version": "1.4.1"
+    },
+    "artifact_sha256_hashes": {
+      "data/expanded_experimental_dataset.csv": "22d61291d917e4d25187b0bae8e7768f35f1e897d47ba863c328231777c5f2f8",
+      "data/expanded_ood_dataset.json": "c332e863976a377951894ad4051cdacced9f1175a471895236e829af906a76c6",
+      "models/expanded_detector_model.joblib": "3fb96f90c310527fa52d1e38c165886f86626b24f3d9d2fdf81bbc164c1f9946",
+      "models/expanded_vectorizer.joblib": "9327fe28c46969d8e7a0590c15276ba4292dd68a78335af3612ff393ccf344b0",
+      "models/expanded_training_report.json": "ebaa3f7a9d2d49e5b5048cfcad12523b16a73e19f25464e01877af2ee8b90f5f",
+      "training/run_research_evaluation.py": "bce338531de5268837d6935ad494aa3eb5ad640f6fb3979c858b17bd117f226a",
+      "training/run_corrected_research_evaluation.py": "6593d261b5f01ad871952ec9ef32a4ae4a8544b417db2a7fe929e9ec319243f4",
+      "training/research_evaluation_results.json": "94d14d668068aad12fa7a9ddae723b62970234ca258dd3e8a81be4d5d3454976",
+      "training/corrected_research_evaluation_results.json": "9f0496a9b3943ef811eb897c98caf0e47e98d59a5ad580185b48d1918231ffba",
+      "training/final_prediction_discrepancies.csv": "05a764f03008d61b474983e135d0cb4a789aab6dece8a8659cebc44aeec2fd22"
+    }
+  },
+  "metric_discrepancy_reconciliation": {
+    "status": "RECONCILED_AND_EXPLAINED",
+    "finding": "Underlying model predictions, dataset records, splits, and confusion matrices in the generated artifacts (JSON and CSV) were 100% identical between evaluation runs. The discrepancy where CV tau=0.50 changed to 1 FP / 9 FN and test changed to 0 FP / 1 FN occurred solely as a transcription/hallucination error in the chat summary markdown text during the previous assistant turn.",
+    "record_level_differences_count": 0,
+    "verified_confusion_matrices": {
+      "cross_validation": {
+        "tau_0_50": {
+          "tn": 46,
+          "fp": 7,
+          "fn": 2,
+          "tp": 483,
+          "total": 538,
+          "fpr": "7/53 (13.21%)",
+          "fnr": "2/485 (0.41%)",
+          "accuracy": "529/538 (98.33%)"
+        },
+        "tau_0_70": {
+          "tn": 53,
+          "fp": 0,
+          "fn": 14,
+          "tp": 471,
+          "total": 538,
+          "fpr": "0/53 (0.00%)",
+          "fnr": "14/485 (2.89%)",
+          "accuracy": "524/538 (97.40%)"
+        }
+      },
+      "held_out_test": {
+        "tau_0_50": {
+          "tn": 22,
+          "fp": 5,
+          "fn": 1,
+          "tp": 105,
+          "total": 133,
+          "fpr": "5/27 (18.52%)",
+          "fnr": "1/106 (0.94%)",
+          "accuracy": "127/133 (95.49%)"
+        },
+        "tau_0_70": {
+          "tn": 27,
+          "fp": 0,
+          "fn": 2,
+          "tp": 104,
+          "total": 133,
+          "fpr": "0/27 (0.00%)",
+          "fnr": "2/106 (1.89%)",
+          "accuracy": "131/133 (98.50%)"
+        }
+      },
+      "out_of_distribution": {
+        "tau_0_50": {
+          "correct": "4/4 (100.0%)",
+          "details": "2 benign correctly allowed, 2 malicious correctly blocked"
+        },
+        "tau_0_70": {
+          "correct": "3/4 (75.0%)",
+          "details": "2 benign correctly allowed, 1 malicious blocked (p=0.9840), 1 malicious missed by ML alone (p=0.6974)"
+        }
+      }
+    }
+  },
+  "confidence_interval_audit": {
+    "status": "AUDITED_AND_VERIFIED",
+    "explanation_of_zero_width_cluster_bootstrap": "Cluster bootstrap resamples canonical groups from the empirical distribution with replacement. When zero false positives exist in the sample (as at tau=0.70), every resampled cluster has 0 false positives, causing the empirical bootstrap distribution of FPR to collapse to a degenerate point mass at 0.0 ([0%, 0%]). This is a known mathematical property of non-parametric bootstrap on zero-count events and cannot be interpreted as proof of zero population error.",
+    "primary_binomial_uncertainty_estimates_clopper_pearson_95": {
+      "cv_tau_0_70": {
+        "fpr": {
+          "rate": "0/53 (0.00%)",
+          "ci_95": [
+            0.0,
+            0.067184
+          ]
+        },
+        "fnr": {
+          "rate": "14/485 (2.89%)",
+          "ci_95": [
+            0.015886,
+            0.047941
+          ]
+        },
+        "precision": {
+          "rate": "471/471 (100.00%)",
+          "ci_95": [
+            0.992215,
+            1.0
+          ]
+        },
+        "recall": {
+          "rate": "471/485 (97.11%)",
+          "ci_95": [
+            0.952059,
+            0.984114
+          ]
+        }
+      },
+      "test_tau_0_70": {
+        "fpr": {
+          "rate": "0/27 (0.00%)",
+          "ci_95": [
+            0.0,
+            0.127699
+          ]
+        },
+        "fnr": {
+          "rate": "2/106 (1.89%)",
+          "ci_95": [
+            0.002294,
+            0.066491
+          ]
+        },
+        "precision": {
+          "rate": "104/104 (100.00%)",
+          "ci_95": [
+            0.965223,
+            1.0
+          ]
+        },
+        "recall": {
+          "rate": "104/106 (98.11%)",
+          "ci_95": [
+            0.933509,
+            0.997706
+          ]
+        }
+      },
+      "cv_tau_0_50": {
+        "fpr": {
+          "rate": "7/53 (13.21%)",
+          "ci_95": [
+            0.05479,
+            0.253368
+          ]
+        },
+        "fnr": {
+          "rate": "2/485 (0.41%)",
+          "ci_95": [
+            0.0005,
+            0.014816
+          ]
+        }
+      },
+      "test_tau_0_50": {
+        "fpr": {
+          "rate": "5/27 (18.52%)",
+          "ci_95": [
+            0.063,
+            0.38083
+          ]
+        },
+        "fnr": {
+          "rate": "1/106 (0.94%)",
+          "ci_95": [
+            0.000238,
+            0.051412
+          ]
+        }
+      }
+    },
+    "cluster_bootstrap_audit": {
+      "resampling_unit": "canonical_group (50 clusters in CV, 11 clusters in Test)",
+      "mixed_class_clusters_count": 8,
+      "mixed_class_clusters": [
+        "filesystem",
+        "git",
+        "github",
+        "gitlab",
+        "memory",
+        "puppeteer",
+        "slack",
+        "sqlite"
+      ],
+      "zero_denominator_replicates_handling": "In test set resampling, 7 of 1,000 iterations selected only malicious clusters (len(unique(y)) < 2) and were correctly skipped without skewing denominators. In CV, all 1,000 iterations had both classes present."
+    }
+  },
+  "latency_verification": {
+    "status": "VERIFIED_UNDER_CONTROLLED_CONDITIONS",
+    "timing_boundary_dissection": {
+      "pure_ml_inference": {
+        "operation": "TF-IDF Vectorization + Logistic Regression predict_proba",
+        "mean_ms": 3.41,
+        "median_ms": 3.017,
+        "p95_ms": 5.469,
+        "p99_ms": 10.024,
+        "n": 200,
+        "includes_upstream": false,
+        "includes_protocol": false
+      },
+      "pure_policy_engine": {
+        "operation": "PolicyEngine.evaluate() decision logic",
+        "mean_ms": 0.188,
+        "median_ms": 0.188,
+        "p95_ms": 0.238,
+        "p99_ms": 0.354,
+        "n": 200,
+        "includes_upstream": false,
+        "includes_protocol": false
+      },
+      "in_memory_proxy_list": {
+        "operation": "MCPGatewayProxy.list_tools() filtering",
+        "mean_ms": 1.534,
+        "median_ms": 1.505,
+        "p95_ms": 2.002,
+        "p99_ms": 2.846,
+        "n": 200,
+        "includes_upstream": true,
+        "includes_protocol": false
+      },
+      "isolated_call_authorization": {
+        "operation": "MCPGatewayInterceptor.authorize_tool_call() dictionary check",
+        "mean_ms": 0.0007,
+        "median_ms": 0.0007,
+        "p95_ms": 0.0008,
+        "p99_ms": 0.0016,
+        "n": 200,
+        "includes_upstream": false,
+        "includes_protocol": false
+      },
+      "protocol_list_roundtrip": {
+        "operation": "Full MCP JSON-RPC ClientSession.list_tools over AnyIO streams",
+        "mean_ms": 1.557,
+        "median_ms": 1.298,
+        "p95_ms": 3.054,
+        "p99_ms": 3.813,
+        "n": 100,
+        "includes_upstream": true,
+        "includes_protocol": true
+      },
+      "protocol_call_roundtrip": {
+        "operation": "Full MCP JSON-RPC ClientSession.call_tool over AnyIO streams",
+        "mean_ms": 4.246,
+        "median_ms": 3.886,
+        "p95_ms": 6.826,
+        "p99_ms": 8.579,
+        "n": 100,
+        "includes_upstream": true,
+        "includes_protocol": true
+      }
+    },
+    "initial_11_8ms_discrepancy_explanation": "The initial ~11.8-12.8 ms protocol call observation occurred in an un-warmed, unbuffered 20-run scratch script where calculate_total received mismatched arguments (a/b instead of subtotal), which caused upstream ToolError exception stack generation on every iteration. When warmed up (20 iterations) with valid arguments under controlled conditions, protocol call round-trip latency consistently measures between 3.8 and 4.2 ms."
+  },
+  "ablation_audit": {
+    "status": "AUDITED_AND_CORRECTED",
+    "finding": "In the previous ablation script, C1-C5 were standalone classes lacking protocol-level tools/call interception. In Scenario 4 (Direct Bypass), the script manually assigned BYPASS_SUCCEEDED, 1 rather than dispatching through an actual proxy. In this verified audit, S4 for C1-C5 is formally marked NOT_EVALUATED_STANDALONE to reflect that static description filters cannot be evaluated on runtime protocol call interception. Only C6 (MCPGatewayProxy) implements protocol-level interception and was empirically verified to block direct tool calls.",
+    "verified_matrix": {
+      "S1_KNOWN_MALICIOUS": {
+        "C1_HashOnly": {
+          "decision": "BLOCK",
+          "upstream_calls": 0,
+          "outcome": "CORRECT_BLOCK"
+        },
+        "C2_MLOnly": {
+          "decision": "BLOCK",
+          "upstream_calls": 0,
+          "outcome": "CORRECT_BLOCK"
+        },
+        "C3_MandatoryRulesOnly": {
+          "decision": "ALLOW",
+          "upstream_calls": 1,
+          "outcome": "SECURITY_BREACH"
+        },
+        "C4_HashPlusML": {
+          "decision": "BLOCK",
+          "upstream_calls": 0,
+          "outcome": "CORRECT_BLOCK"
+        },
+        "C5_HashMLMandatory": {
+          "decision": "BLOCK",
+          "upstream_calls": 0,
+          "outcome": "CORRECT_BLOCK"
+        },
+        "C6_FullGateway": {
+          "decision": "BLOCK",
+          "upstream_calls": 0,
+          "outcome": "CORRECT_BLOCK"
+        }
+      },
+      "S2_BENIGN_REWRITE": {
+        "C1_HashOnly": {
+          "decision": "BLOCK",
+          "upstream_calls": 0,
+          "outcome": "FALSE_BLOCK"
+        },
+        "C2_MLOnly": {
+          "decision": "ALLOW",
+          "upstream_calls": 1,
+          "outcome": "UNVERIFIED_ALLOW"
+        },
+        "C3_MandatoryRulesOnly": {
+          "decision": "ALLOW",
+          "upstream_calls": 1,
+          "outcome": "UNVERIFIED_ALLOW"
+        },
+        "C4_HashPlusML": {
+          "decision": "BLOCK",
+          "upstream_calls": 0,
+          "outcome": "FALSE_BLOCK"
+        },
+        "C5_HashMLMandatory": {
+          "decision": "BLOCK",
+          "upstream_calls": 0,
+          "outcome": "FALSE_BLOCK"
+        },
+        "C6_FullGateway": {
+          "decision": "QUARANTINE",
+          "upstream_calls": 0,
+          "outcome": "SAFE_QUARANTINE"
+        }
+      },
+      "S3_NEW_TOOL": {
+        "C1_HashOnly": {
+          "decision": "BLOCK",
+          "upstream_calls": 0,
+          "outcome": "FALSE_BLOCK"
+        },
+        "C2_MLOnly": {
+          "decision": "ALLOW",
+          "upstream_calls": 1,
+          "outcome": "UNVERIFIED_ALLOW"
+        },
+        "C3_MandatoryRulesOnly": {
+          "decision": "ALLOW",
+          "upstream_calls": 1,
+          "outcome": "UNVERIFIED_ALLOW"
+        },
+        "C4_HashPlusML": {
+          "decision": "BLOCK",
+          "upstream_calls": 0,
+          "outcome": "FALSE_BLOCK"
+        },
+        "C5_HashMLMandatory": {
+          "decision": "BLOCK",
+          "upstream_calls": 0,
+          "outcome": "FALSE_BLOCK"
+        },
+        "C6_FullGateway": {
+          "decision": "QUARANTINE",
+          "upstream_calls": 0,
+          "outcome": "SAFE_QUARANTINE"
+        }
+      },
+      "S4_DIRECT_BYPASS": {
+        "C1_HashOnly": {
+          "decision": "NOT_APPLICABLE",
+          "upstream_calls": "NOT_EVALUATED_STANDALONE",
+          "outcome": "NOT_EVALUATED_STANDALONE"
+        },
+        "C2_MLOnly": {
+          "decision": "NOT_APPLICABLE",
+          "upstream_calls": "NOT_EVALUATED_STANDALONE",
+          "outcome": "NOT_EVALUATED_STANDALONE"
+        },
+        "C3_MandatoryRulesOnly": {
+          "decision": "NOT_APPLICABLE",
+          "upstream_calls": "NOT_EVALUATED_STANDALONE",
+          "outcome": "NOT_EVALUATED_STANDALONE"
+        },
+        "C4_HashPlusML": {
+          "decision": "NOT_APPLICABLE",
+          "upstream_calls": "NOT_EVALUATED_STANDALONE",
+          "outcome": "NOT_EVALUATED_STANDALONE"
+        },
+        "C5_HashMLMandatory": {
+          "decision": "NOT_APPLICABLE",
+          "upstream_calls": "NOT_EVALUATED_STANDALONE",
+          "outcome": "NOT_EVALUATED_STANDALONE"
+        },
+        "C6_FullGateway": {
+          "decision": "BLOCKED",
+          "upstream_calls": 0,
+          "outcome": "CORRECT_BLOCK"
+        }
+      }
+    }
+  },
+  "mdp_simulation_summary": {
+    "episodes_total": 2500,
+    "random_seeds_evaluated": [
+      42,
+      123,
+      456,
+      789,
+      1000
+    ],
+    "static_threshold_results": {
+      "mean_reward": 7.05,
+      "reward_std": 0.18,
+      "total_breaches": 8,
+      "breach_rate_pct": 0.32,
+      "quarantine_rate_pct": 30.84
+    },
+    "mdp_dynamic_results": {
+      "mean_reward": 7.0,
+      "reward_std": 0.25,
+      "total_breaches": 35,
+      "breach_rate_pct": 1.4,
+      "quarantine_rate_pct": 24.72
+    },
+    "conclusion": "Static Threshold Policy is empirically superior to the MDP dynamic policy. The MDP permits unverified drift (LOW_RISK_UNVERIFIED) to avoid administrative quarantine penalties (-2.0), leading to 4.38x more breaches in simulation."
+  }
+}

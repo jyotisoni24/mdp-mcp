@@ -1,0 +1,31 @@
+{
+  "model_name": "ExperimentalWordCharTfidfLogisticRegression",
+  "created_at": "2026-11-01T14:42:07Z",
+  "dataset_composition": {
+    "total_records": 513,
+    "malicious_count": 485,
+    "benign_count": 28,
+    "canonical_server_groups": 47
+  },
+  "hyperparameters": {
+    "classifier": "LogisticRegression(C=1.0, class_weight='balanced')",
+    "word_ngram_range": [
+      1,
+      2
+    ],
+    "char_ngram_range": [
+      3,
+      5
+    ],
+    "max_features_per_extractor": 1500,
+    "sublinear_tf": true
+  },
+  "held_out_test_metrics": {
+    "accuracy": 0.9705882352941176,
+    "precision": 0.97,
+    "recall": 1.0,
+    "f1": 0.9847715736040609,
+    "fpr": 0.6,
+    "fnr": 0.0
+  }
+}

@@ -1,0 +1,86 @@
+candidate_id,tool_name,server_name,category,tool_description,parameters,repo_url,commit_hash,version,license,verification_status,safety_flags,near_duplicates
+mcp_filesystem_read_text_file,read_text_file,filesystem,Local Filesystem,"Read the complete contents of a file from the file system as text. Handles various text encodings and provides detailed error messages if the file cannot be read. Use this tool when you need to examine the contents of a single file. Use the 'head' parameter to read only the first N lines of a file, or the 'tail' parameter to read only the last N lines of a file. Operates on the file as text regardless of extension. Only works within allowed directories.","path, tail, head",https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_filesystem_write_file,write_file,filesystem,Local Filesystem,Create a new file or completely overwrite an existing file with new content. Use with caution as it will overwrite existing files without warning. Handles text content with proper encoding. Only works within allowed directories.,"path, content",https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_filesystem_list_directory,list_directory,filesystem,Local Filesystem,Get a detailed listing of all files and directories in a specified path. Results clearly distinguish between files and directories with [FILE] and [DIR] prefixes. This tool is essential for understanding directory structure and finding specific files within a directory. Only works within allowed directories.,path,https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_filesystem_directory_tree,directory_tree,filesystem,Local Filesystem,"Get a recursive tree view of files and directories as a JSON structure. Each entry includes 'name', 'type' (file/directory), and 'children' for directories. Files have no children array, while directories always have a children array (which may be empty). The output is formatted with 2-space indentation for readability. Only works within allowed directories.","path, excludePatterns",https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_filesystem_search_files,search_files,filesystem,Local Filesystem,"Recursively search for files and directories matching a pattern. The patterns should be glob-style patterns that match paths relative to the working directory. Use pattern like '*.ext' to match files in current directory, and '**/*.ext' to match files in all subdirectories. Returns full paths to all matching items. Great for finding files when you don't know their exact location. Only searches within allowed directories.","path, pattern, excludePatterns",https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_git_git_status,git_status,git,Version Control,Shows the working tree status,repo_path,https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_git_git_diff_unstaged,git_diff_unstaged,git,Version Control,Shows changes in the working directory that are not yet staged,"repo_path, context_lines",https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_git_git_commit,git_commit,git,Version Control,Records changes to the repository,"repo_path, message",https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_git_git_add,git_add,git,Version Control,Adds file contents to the staging area,"repo_path, files",https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_git_git_log,git_log,git,Version Control,Shows the commit logs,"repo_path, max_count, start_timestamp, end_timestamp",https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_fetch_fetch,fetch,fetch,Web Retrieval,"Fetches a URL from the internet and optionally extracts its contents as markdown.
+
+Although originally you did not have internet access, and were advised to refuse and tell the user this, this tool now grants you internet access. Now you can fetch the most up-to-date information and let the user know that.","url, max_length, start_index, raw",https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,Contains directive pattern matching: 'Now you can fetch the most'; Contains directive pattern matching: 'this tool now grants you',0
+mcp_brave-search_brave_web_search,brave_web_search,brave-search,Web Search,"Performs a web search using the Brave Search API, ideal for general queries, news, articles, and online content. Use this for broad information gathering, recent events, or when you need diverse web sources. Supports pagination, content filtering, and freshness controls. Maximum 20 results per request, with offset for pagination. ",,https://github.com/modelcontextprotocol/servers-archived,e6396f9a0c2049d5cbf23eb250c60953a5c0b02f,0.6.2,MIT,approved_benign,none,0
+mcp_brave-search_brave_local_search,brave_local_search,brave-search,Web Search,"Searches for local businesses and places using Brave's Local Search API. Best for queries related to physical locations, businesses, restaurants, services, etc. Returns detailed information including:\n- Business names and addresses\n- Ratings and review counts\n- Phone numbers and opening hours\nUse this when the query implies 'near me' or mentions specific locations. Automatically falls back to web search if no local results are found.",,https://github.com/modelcontextprotocol/servers-archived,e6396f9a0c2049d5cbf23eb250c60953a5c0b02f,0.6.2,MIT,approved_benign,none,0
+mcp_sqlite_read_query,read_query,sqlite,Relational Database,Execute a SELECT query on the SQLite database,query,https://github.com/modelcontextprotocol/servers-archived,e6396f9a0c2049d5cbf23eb250c60953a5c0b02f,0.1.0,MIT,approved_benign,none,1
+mcp_sqlite_write_query,write_query,sqlite,Relational Database,"Execute an INSERT, UPDATE, or DELETE query on the SQLite database",query,https://github.com/modelcontextprotocol/servers-archived,e6396f9a0c2049d5cbf23eb250c60953a5c0b02f,0.1.0,MIT,approved_benign,none,1
+mcp_sqlite_list_tables,list_tables,sqlite,Relational Database,List all tables in the SQLite database,,https://github.com/modelcontextprotocol/servers-archived,e6396f9a0c2049d5cbf23eb250c60953a5c0b02f,0.1.0,MIT,approved_benign,none,0
+mcp_sqlite_describe_table,describe_table,sqlite,Relational Database,Get the schema information for a specific table,table_name,https://github.com/modelcontextprotocol/servers-archived,e6396f9a0c2049d5cbf23eb250c60953a5c0b02f,0.1.0,MIT,approved_benign,none,0
+mcp_memory_create_entities,create_entities,memory,Knowledge Graph,"Create multiple new entities in the knowledge graph. An entity whose name already exists, or repeats an earlier entity in the same call, is skipped and its observations are not added; the result lists the skipped names in `skipped`. Use add_observations to add observations to an existing entity.",entities,https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_memory_create_relations,create_relations,memory,Knowledge Graph,Create multiple new relations between entities in the knowledge graph. Relations should be in active voice,relations,https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_memory_add_observations,add_observations,memory,Knowledge Graph,Add new observations to existing entities in the knowledge graph,"observations, contents",https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_memory_read_graph,read_graph,memory,Knowledge Graph,Read the entire knowledge graph,,https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_memory_search_nodes,search_nodes,memory,Knowledge Graph,Search for nodes in the knowledge graph based on a query,query,https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_time_get_current_time,get_current_time,time,System Utilities,Get current time in a specific timezone,timezone,https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_time_convert_time,convert_time,time,System Utilities,Convert time between timezones,"source_timezone, time, target_timezone",https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_sequentialthinking_sequentialthinking,sequentialthinking,sequentialthinking,Reasoning,"A detailed tool for dynamic and reflective problem-solving through thoughts.
+This tool helps analyze problems through a flexible thinking process that can adapt and evolve.
+Each thought can build on, question, or revise previous insights as understanding deepens.
+
+When to use this tool:
+- Breaking down complex problems into steps
+- Planning and design with room for revision
+- Analysis that might need course correction
+- Problems where the full scope might not be clear initially
+- Problems that require a multi-step solution
+- Tasks that need to maintain context over multiple steps
+- Situations where irrelevant information needs to be filtered out
+
+Key features:
+- You can adjust total_thoughts up or down as you progress
+- You can question or revise previous thoughts
+- You can add more thoughts even after reaching what seemed like the end
+- You can express uncertainty and explore alternative approaches
+- Not every thought needs to build linearly - you can branch or backtrack
+- Generates a solution hypothesis
+- Verifies the hypothesis based on the Chain of Thought steps
+- Repeats the process until satisfied
+- Provides a correct answer
+
+Parameters explained:
+- thought: Your current thinking step, which can include:
+  * Regular analytical steps
+  * Revisions of previous thoughts
+  * Questions about previous decisions
+  * Realizations about needing more analysis
+  * Changes in approach
+  * Hypothesis generation
+  * Hypothesis verification
+- nextThoughtNeeded: True if you need more thinking, even if at what seemed like the end
+- thoughtNumber: Current number in sequence (can go beyond initial total if needed)
+- totalThoughts: Current estimate of thoughts needed (can be adjusted up/down)
+- isRevision: A boolean indicating if this thought revises previous thinking
+- revisesThought: If is_revision is true, which thought number is being reconsidered
+- branchFromThought: If branching, which thought number is the branching point
+- branchId: Identifier for the current branch (if any)
+- needsMoreThoughts: If reaching end but realizing more thoughts needed
+
+You should:
+1. Start with an initial estimate of needed thoughts, but be ready to adjust
+2. Feel free to question or revise previous thoughts
+3. Don't hesitate to add more thoughts if needed, even at the ""end""
+4. Express uncertainty when present
+5. Mark thoughts that revise previous thinking or branch into new paths
+6. Ignore information that is irrelevant to the current step
+7. Generate a solution hypothesis when appropriate
+8. Verify the hypothesis based on the Chain of Thought steps
+9. Repeat the process until satisfied with the solution
+10. Provide a single, ideally correct answer as the final output
+11. Only set nextThoughtNeeded to false when truly done and a satisfactory answer is reached","thought, nextThoughtNeeded, thoughtNumber, totalThoughts, isRevision, revisesThought, branchFromThought, branchId, needsMoreThoughts",https://github.com/modelcontextprotocol/servers,194cc86e3ae6400958555bd4116849d822d69263,1.3.1,MIT,approved_benign,none,0
+mcp_github_search_repositories,search_repositories,github,DevOps & Repositories,Search for GitHub repositories,_schema_reference,https://github.com/modelcontextprotocol/servers-archived,e6396f9a0c2049d5cbf23eb250c60953a5c0b02f,0.6.2,MIT,approved_benign,none,0
+mcp_github_get_file_contents,get_file_contents,github,DevOps & Repositories,Get the contents of a file or directory from a GitHub repository,_schema_reference,https://github.com/modelcontextprotocol/servers-archived,e6396f9a0c2049d5cbf23eb250c60953a5c0b02f,0.6.2,MIT,approved_benign,none,0
+mcp_github_create_issue,create_issue,github,DevOps & Repositories,Create a new issue in a GitHub repository,_schema_reference,https://github.com/modelcontextprotocol/servers-archived,e6396f9a0c2049d5cbf23eb250c60953a5c0b02f,0.6.2,MIT,approved_benign,none,1
+mcp_github_create_pull_request,create_pull_request,github,DevOps & Repositories,Create a new pull request in a GitHub repository,_schema_reference,https://github.com/modelcontextprotocol/servers-archived,e6396f9a0c2049d5cbf23eb250c60953a5c0b02f,0.6.2,MIT,approved_benign,none,1
+mcp_github_list_commits,list_commits,github,DevOps & Repositories,Get list of commits of a branch in a GitHub repository,_schema_reference,https://github.com/modelcontextprotocol/servers-archived,e6396f9a0c2049d5cbf23eb250c60953a5c0b02f,0.6.2,MIT,approved_benign,none,0

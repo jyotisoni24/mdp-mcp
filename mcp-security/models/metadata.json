@@ -1,0 +1,23 @@
+{
+  "model_name": "TfidfLogisticRegression",
+  "created_at": "2026-10-31T19:53:03.117252",
+  "total_dataset_size": 685,
+  "train_size": 548,
+  "test_size": 137,
+  "metrics": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "hyperparameters": {
+    "C": 2.0,
+    "max_iter": 1000,
+    "class_weight": "balanced",
+    "ngram_range": [
+      1,
+      2
+    ],
+    "max_features": 2500
+  }
+}

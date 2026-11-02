@@ -1,0 +1,63 @@
+{
+  "collection_timestamp": "2026-11-01T15:07:05.971104+00:00",
+  "total_servers_scanned": 6,
+  "total_candidates_collected": 27,
+  "pinned_commit_sha": "e6396f9a0c2049d5cbf23eb250c60953a5c0b02f",
+  "repository_url": "https://github.com/modelcontextprotocol/servers-archived",
+  "verification_status": "pending_review",
+  "directive_tools_found": [],
+  "servers_breakdown": [
+    {
+      "server_name": "puppeteer",
+      "category": "Web Automation & Scraping",
+      "source_file": "src/puppeteer/index.ts",
+      "tools_collected": 7
+    },
+    {
+      "server_name": "slack",
+      "category": "Messaging & Collaboration",
+      "source_file": "src/slack/index.ts",
+      "tools_collected": 8
+    },
+    {
+      "server_name": "postgres",
+      "category": "Relational Database",
+      "source_file": "src/postgres/index.ts",
+      "tools_collected": 1
+    },
+    {
+      "server_name": "gdrive",
+      "category": "Cloud Storage & Document Retrieval",
+      "source_file": "src/gdrive/index.ts",
+      "tools_collected": 1
+    },
+    {
+      "server_name": "aws-kb-retrieval",
+      "category": "Knowledge Base Retrieval",
+      "source_file": "src/aws-kb-retrieval-server/index.ts",
+      "tools_collected": 1
+    },
+    {
+      "server_name": "gitlab",
+      "category": "Version Control & Project Management",
+      "source_file": "src/gitlab/index.ts",
+      "tools_collected": 9
+    }
+  ],
+  "security_flags_summary": {
+    "arbitrary_code_execution": [
+      "puppeteer_evaluate"
+    ],
+    "arbitrary_url_navigation": [
+      "puppeteer_navigate"
+    ],
+    "external_data_dispatch": [
+      "slack_post_message",
+      "slack_reply_to_thread"
+    ],
+    "remote_repo_push": [
+      "create_or_update_file",
+      "push_files"
+    ]
+  }
+}
